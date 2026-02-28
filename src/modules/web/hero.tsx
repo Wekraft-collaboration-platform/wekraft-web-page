@@ -75,7 +75,7 @@ const Hero = () => {
         </div>
 
         <div className="mt-20 w-full max-w-[80%] mx-auto">
-          <div className="-skew-x-6 border hover:scale-110 cursor-grab hover:skew-0 transition-all duration-500 ease-in-out border-black/50 rounded-lg">
+          <div className="-skew-x-6 border hover:scale-110 cursor-grab hover:skew-0 transition-all duration-500 ease-in-out border-black/50 rounded-2xl overflow-hidden">
             <Image
               src="/hero-img-1.png"
               alt="background"

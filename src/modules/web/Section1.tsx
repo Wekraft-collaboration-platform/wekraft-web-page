@@ -18,7 +18,17 @@ import {
   Star,
   Globe as GlobeIcon,
   LucideActivity,
+  LucideAlertOctagon,
 } from "lucide-react";
+
+const avatars = [
+  "https://i.pravatar.cc/40?img=1",
+  "https://i.pravatar.cc/40?img=5",
+  "https://i.pravatar.cc/40?img=8",
+  "https://i.pravatar.cc/40?img=12",
+  "https://i.pravatar.cc/40?img=16",
+  "https://i.pravatar.cc/40?img=20",
+];
 
 const Cursor = ({
   name,
@@ -111,9 +121,9 @@ const Section1 = () => {
             <div className="absolute -bottom-10 w-[85%] h-[60%] bg-white backdrop-blur-xl rounded-t-4xl border-t-4 border-x-4 border-black/20 shadow-2xl overflow-hidden transition-all group-hover:-translate-y-6">
               <div className="flex items-center gap-2 p-4 border-b border-black/10">
                 <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-400/50" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400/50" />
-                  <div className="w-3 h-3 rounded-full bg-green-400/50" />
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
                 </div>
               </div>
 
@@ -134,10 +144,17 @@ const Section1 = () => {
                 </div>
                 <div className="space-y-3">
                   <div className="h-32 w-full bg-gray-200 rounded-xl border border-black/10 flex items-center justify-center relative overflow-hidden">
-                    <LucideActivity
-                      className="text-black/40 w-12 h-12"
-                      strokeWidth={1}
-                    />
+                    <h1 className="text-muted-foreground/50 text-sm font-medium">
+                      <LucideAlertOctagon
+                        className="text-black/40 w-5 h-5 inline"
+                        strokeWidth={1}
+                      />
+                      {" "}
+                      Issues hav been detected in file <br />{" "}
+                      <span className="text-rose-500">
+                        index.tsx. Resolve it.
+                      </span>
+                    </h1>
                     <motion.div
                       animate={{
                         left: ["-100%", "100%"],
@@ -187,10 +204,10 @@ const Section1 = () => {
             className="md:col-span-1 relative overflow-hidden rounded-[2.5rem] border border-white/5 border-b-white/40 bg-linear-to-b from-gray-800 to-gray-950 h-105 p-8 flex flex-col items-center justify-end text-center group"
           >
             <div className="absolute top-12 w-full flex justify-center perspective-[1000px]">
-              <div className="w-68 bg-white border border-white/10 rounded-2xl p-5 shadow-2xl transition-all duration-500 group-hover:rotate-0 rotate-3">
+              <div className="w-68 bg-white border border-white/10 rounded-2xl p-3.5 shadow-2xl transition-all duration-500 group-hover:rotate-0 rotate-3">
                 <div className="flex items-center gap-2 mb-6 text-gray-400">
                   <Cpu className="w-4 h-4" />
-                  <span className="text-[10px] tracking-widest font-bold">
+                  <span className="text-[10px] text-muted-foreground tracking-widest font-bold">
                     AUTOMATION CORE
                   </span>
                 </div>
@@ -215,11 +232,30 @@ const Section1 = () => {
                   ].map((item, i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-between p-3 rounded-xl bg-gray-800 border border-white/5 "
+                      className="flex items-center justify-between p-2.5 rounded-xl bg-gray-800 border border-white/5"
                     >
-                      <span className="text-xs text-gray-300">
-                        {item.label}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        {/* Stacked Avatars */}
+                        <div className="flex -space-x-2">
+                          {avatars
+                            .slice(
+                              i === 0 ? 0 : i === 1 ? 2 : 5,
+                              i === 0 ? 2 : i === 1 ? 5 : 6,
+                            )
+                            .map((avatar, index) => (
+                              <img
+                                key={index}
+                                src={avatar}
+                                alt="user"
+                                className="w-7 h-7 rounded-full border-2 border-gray-900"
+                              />
+                            ))}
+                        </div>
+
+                        <span className="text-xs text-gray-300">
+                          {item.label}
+                        </span>
+                      </div>
                       <div
                         className={`px-2 py-0.5 rounded ${item.color} text-[8px] font-bold text-white uppercase`}
                       >
@@ -252,8 +288,13 @@ const Section1 = () => {
             className="md:col-span-1 relative overflow-hidden rounded-[2.5rem]  border border-white/5 bg-linear-to-b from-gray-800 to-gray-950 h-95 flex flex-col items-center p-8 text-center group"
           >
             <div>
-                <h1 className="text-2xl font-semibold text-white mb-2 leading-tight">Work Across Globe</h1>
-                <p className="text-sm text-gray-400">Collaborate with our global team and access resources from anywhere.</p>
+              <h1 className="text-2xl font-semibold text-white mb-2 leading-tight">
+                Work Across Globe
+              </h1>
+              <p className="text-sm text-gray-400">
+                Collaborate with our global team and access resources from
+                anywhere.
+              </p>
             </div>
             <div className="absolute inset-0 w-full h-full top-40">
               <Globe />
@@ -277,8 +318,8 @@ const Section1 = () => {
               </p>
             </div>
 
-            <div className="relative w-full h-40 flex justify-center items-center">
-              <div className="absolute bg-white backdrop-blur rounded-2xl p-4 border border-white/10 flex items-center gap-4 w-52 -rotate-6 -translate-x-6 -translate-y-4 shadow-2xl transition-all group-hover:-rotate-3">
+            <div className="relative w-full h-40 flex justify-center items-center -mt-4">
+              <div className="absolute bg-white backdrop-blur rounded-2xl p-3 border border-white/10 flex items-center gap-4 w-52 -rotate-6 -translate-x-6 -translate-y-4 shadow-2xl transition-all group-hover:-rotate-3">
                 <div className="flex flex-col items-start">
                   <div className="w-8 h-8 rounded-md bg-sky-500/30 text-sky-400 flex items-center justify-center mb-1">
                     <Activity className="w-4 h-4" />
@@ -317,12 +358,12 @@ const Section1 = () => {
                 </div>
               </div>
 
-              <div className="absolute bg-white/10 backdrop-blur rounded-2xl p-4 border border-white/40 flex items-center gap-4 w-52 rotate-6 translate-x-8 translate-y-12 shadow-2xl transition-all group-hover:rotate-2">
+              <div className="absolute bg-white backdrop-blur rounded-2xl p-3 border border-white/40 flex items-center gap-4 w-52 rotate-6 translate-x-8 translate-y-12 shadow-2xl transition-all group-hover:rotate-2">
                 <div className="flex flex-col items-start">
-                  <div className="w-8 h-8 rounded-md bg-indigo-500/40 text-indigo-100 flex items-center justify-center mb-1">
+                  <div className="w-8 h-8 rounded-md bg-indigo-500/40 text-indigo-600 flex items-center justify-center mb-1">
                     <Layers className="w-4 h-4" />
                   </div>
-                  <div className="text-[10px] font-bold text-white uppercase">
+                  <div className="text-[10px] font-bold text-black uppercase">
                     Production
                   </div>
                 </div>
@@ -354,8 +395,47 @@ const Section1 = () => {
                       className="text-indigo-500"
                     />
                   </svg>
-                  <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-black">
                     76%
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute bg-white/10 backdrop-blur rounded-2xl p-3 border border-white/10 flex items-center gap-4 w-52 -rotate-6 -translate-x-6 translate-y-28 shadow-2xl transition-all group-hover:-rotate-3">
+                <div className="flex flex-col items-start">
+                  <div className="w-8 h-8 rounded-md bg-blue-500/30 text-blue-500 flex items-center justify-center mb-1">
+                    <Activity className="w-4 h-4" />
+                  </div>
+                  <div className="text-[10px] font-bold text-white uppercase">
+                    Efficiency
+                  </div>
+                </div>
+                <div className="relative w-12 h-12 ml-auto">
+                  <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      className="text-white/5"
+                    />
+                    <motion.circle
+                      initial={{ strokeDasharray: "0, 100" }}
+                      whileInView={{ strokeDasharray: "92, 100" }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      cx="18"
+                      cy="18"
+                      r="16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      className="text-blue-500"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white">
+                    92%
                   </div>
                 </div>
               </div>
@@ -395,7 +475,7 @@ const Section1 = () => {
           </motion.div>
 
           {/* Card 6: Audio experiences (Span 3 / Full Width) */}
-          <div className="md:col-span-3 relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-linear-to-br from-sky-400 via-blue-500 to-blue-700 h-80 flex flex-col items-center justify-center group p-8">
+          <div className="md:col-span-3 relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-linear-to-br from-sky-400 via-blue-500 to-blue-700 h-70 flex flex-col items-center group p-8">
             {/* Floating Background Pills */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {/* Pink */}
@@ -423,7 +503,7 @@ const Section1 = () => {
                 Economics
               </div>
               {/* Red/Rose */}
-              <div className="absolute bottom-24 right-1/4 bg-rose-100 text-rose-700 text-xs font-medium px-4 py-2 rounded-full flex items-center gap-2 border border-rose-50 shadow-sm opacity-80 transition-transform duration-[2000ms] group-hover:-translate-y-4">
+              <div className="absolute bottom-2 right-1/4 bg-rose-100 text-rose-700 text-xs font-medium px-4 py-2 rounded-full flex items-center gap-2 border border-rose-50 shadow-sm opacity-80 transition-transform duration-[2000ms] group-hover:-translate-y-4">
                 <div className="w-3 h-3 bg-rose-500 rounded-full flex items-center justify-center">
                   <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                 </div>
@@ -442,6 +522,26 @@ const Section1 = () => {
                   <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                 </div>
                 Corporate
+              </div>
+              {/* new */}
+              <div className="absolute bottom-6 left-1/2 bg-yellow-100 text-yellow-700 text-xs font-medium px-4 py-2 rounded-full flex items-center gap-2 border border-yellow-50 shadow-sm opacity-80 transition-transform duration-[2000ms] group-hover:-translate-y-2">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <Star
+                    className="w-2 h-2 text-white fill-white"
+                    strokeWidth={1.5}
+                  />
+                </div>
+                new 1
+              </div>
+              {/* new */}
+              <div className="absolute bottom-1/4 left-10 bg-yellow-100 text-yellow-700 text-xs font-medium px-4 py-2 rounded-full flex items-center gap-2 border border-yellow-50 shadow-sm opacity-80 transition-transform duration-[2000ms] group-hover:-translate-y-2">
+                <div className="w-3 h-3 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <Star
+                    className="w-2 h-2 text-white fill-white"
+                    strokeWidth={1.5}
+                  />
+                </div>
+                new 2
               </div>
             </div>
 
