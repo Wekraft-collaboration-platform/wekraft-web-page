@@ -90,7 +90,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
 
       <main className="absolute inset-0 flex flex-col items-center justify-center md:-mt-8">
-        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-20">
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-8 mt-8">
           <span>✨</span>
           <Separator orientation="vertical" className="mx-2 bg-gray-600" />
           <span className="text-gray-200">Better way to collaborate</span>
