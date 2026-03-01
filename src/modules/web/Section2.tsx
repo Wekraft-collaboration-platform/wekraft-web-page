@@ -13,8 +13,11 @@ import {
   Server,
   Activity,
   Cpu,
+  LucideX,
+  LucideAlertCircle,
 } from "lucide-react";
 import { Orb } from "@/components/ui/Orb";
+import { Button } from "@/components/ui/button";
 
 /* ───────────────── animated connector line ───────────────── */
 const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
@@ -88,7 +91,7 @@ const FeatureCard = ({
     whileInView={{ opacity: 1, y: 0, scale: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    className={`max-w-[280px] w-full rounded-2xl border border-white/8 bg-linear-to-br from-white/6 to-white/2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] p-5 ${className}`}
+    className={`max-w-[300px] w-full rounded-2xl border border-white/8 bg-linear-to-br from-white/6 to-white/2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] p-4 ${className}`}
   >
     {children}
   </motion.div>
@@ -98,7 +101,7 @@ const Section2 = () => {
   const containerRef = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
   });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
@@ -106,7 +109,7 @@ const Section2 = () => {
   const BLUE_ORB: [string, string] = ["#CADCFC", "#A0B9D1"];
 
   return (
-    <motion.div 
+    <motion.div
       ref={containerRef}
       style={{ scale, opacity }}
       className="min-h-screen w-full bg-black overflow-hidden selection:bg-blue-500/30 dark relative z-0"
@@ -203,40 +206,43 @@ const Section2 = () => {
                     Task Lists
                   </h3>
                 </div>
-                <div className="space-y-2.5">
+                <div className="space-y-2.5 bg-slate-200 p-2 rounded-lg">
                   {[
                     {
-                      text: "Draft client proposal",
+                      text: "Auth Setup",
                       done: true,
-                      tag: "Update",
+                      tag: "Done",
                     },
                     {
                       text: "Analytics report",
                       done: true,
-                      tag: "Schedule team",
+                      tag: "Done",
                     },
                     {
-                      text: "Review Q3 metrics",
+                      text: "Fix Leakage",
                       done: false,
-                      tag: "Pending",
+                      tag: "Assigned",
                     },
                   ].map((t, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 text-xs group/task"
+                      className="flex items-center gap-2 text-xs group/task "
                     >
-                      <span className="text-gray-400 truncate flex-1 group-hover/task:text-gray-200 transition-colors">
+                      <span className="text-black truncate flex-1 group-hover/task:text-gray-200 transition-colors">
                         {t.text}
                       </span>
                       <span
                         className={`shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold ${
                           t.done
-                            ? "bg-blue-500/20 text-blue-400"
-                            : "bg-white/5 text-gray-500"
+                            ? "bg-blue-500/20 text-blue-600"
+                            : "bg-red-500/10 text-red-600"
                         }`}
                       >
                         {t.done && <CheckSquare className="w-2.5 h-2.5" />}
                         {t.tag}
+                      </span>
+                      <span className="text-[10px] tracking-tight text-amber-600">
+                        {t.done ? "" : "Agent running"}
                       </span>
                     </div>
                   ))}
@@ -250,7 +256,7 @@ const Section2 = () => {
                     <GitBranch className="w-3.5 h-3.5 text-emerald-400" />
                   </div>
                   <h3 className="text-sm font-semibold text-white tracking-wide">
-                    Workflows
+                    Auto Review Events
                   </h3>
                 </div>
                 <div className="space-y-3">
@@ -259,18 +265,24 @@ const Section2 = () => {
                       <div className="w-2 h-2 rounded-sm bg-emerald-400" />
                     </div>
                     <span className="text-xs text-gray-300 font-medium">
-                      Draft client proposal
+                      Commit SHA sh756003bB
                     </span>
                   </div>
                   <div className="flex items-center gap-2 pl-2">
-                    <ArrowRight className="w-3 h-3 text-gray-600" />
-                    <span className="text-xs text-gray-500">
-                      Manager review &amp; approval
+                    <ArrowRight className="w-3 h-3 text-red-500" />
+                    <span className="text-xs text-red-500">
+                      .env Found on Line 263{" "}
+                      <span className="text-white">Assigned to Rox</span>
                     </span>
                   </div>
-                  <div className="mt-2 px-3 py-2 rounded-lg bg-white/3 border border-white/6 text-[11px] text-gray-500 flex items-center gap-1.5 cursor-pointer hover:bg-white/6 transition-colors">
-                    <Zap className="w-3 h-3 text-blue-400" />
-                    Create a workflow to publish a&nbsp;…
+                  <div className="flex items-center justify-center gap-10">
+                    <Button size="sm" variant="outline" className="text-xs text-white">
+                      Assign to Rox
+                    </Button>
+
+                    <Button size="sm" variant="destructive" className="text-[10px]">
+                      Ignore <LucideX className="w-2 h-2" />
+                    </Button>
                   </div>
                 </div>
               </FeatureCard>
@@ -304,7 +316,7 @@ const Section2 = () => {
                       <Server className="w-3.5 h-3.5 text-blue-400" />
                     </div>
                     <h3 className="text-sm font-semibold text-white tracking-wide">
-                      Cloud Execution
+                      Deployemnt Tracked
                     </h3>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -315,15 +327,15 @@ const Section2 = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3 bg-black/40 rounded-xl p-3 border border-white/5 font-mono text-[10px]">
-                  <div className="flex items-center gap-2 text-blue-400/80">
+                <div className="space-y-3 bg-slate-200 rounded-xl p-3 border border-white/5 font-mono text-[10px]">
+                  <div className="flex items-center gap-2 text-blue-500">
                     <Terminal className="w-3 h-3" />
                     <span>wekraft ~ deploy --prod</span>
                   </div>
                   <div className="space-y-1">
-                    <div className="flex items-center justify-between text-gray-400">
+                    <div className="flex items-center justify-between text-black">
                       <span>Optimization</span>
-                      <span className="text-emerald-400">99.2%</span>
+                      <span className="text-emerald-600">99.2%</span>
                     </div>
                     <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                       <motion.div
@@ -337,11 +349,7 @@ const Section2 = () => {
                   <div className="pt-1 flex flex-col gap-1 text-gray-500">
                     <div className="flex items-center gap-2">
                       <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                      <span>Node cluster initiated...</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-1 h-1 rounded-full bg-blue-500" />
-                      <span>Syncing global CDN...</span>
+                      <span>Deployment Tracked from Vercel...</span>
                     </div>
                   </div>
                 </div>
@@ -351,27 +359,27 @@ const Section2 = () => {
               <FeatureCard delay={0.4}>
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-7 h-7 rounded-lg bg-amber-500/15 flex items-center justify-center">
-                    <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
+                    <LucideAlertCircle className="w-3.5 h-3.5 text-red-500" />
                   </div>
                   <h3 className="text-sm font-semibold text-white tracking-wide">
-                    Insights
+                    Auto Assign Issues
                   </h3>
                 </div>
                 <div className="space-y-2.5">
                   <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-500/[0.07] border border-blue-500/10">
                     <Zap className="w-3 h-3 text-blue-400 shrink-0" />
                     <span className="text-xs text-gray-300">
-                      Automate weekly reports
+                      Auto Issue Assigning
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                       <TrendingUp className="w-3 h-3 text-cyan-500" />
-                      Activity trend
+                      Issues Fixes
                     </span>
                     <span className="flex items-center gap-1">
                       <Zap className="w-3 h-3 text-amber-400" />
-                      Focus on top priorities
+                      Skill based Matching
                     </span>
                   </div>
                 </div>
