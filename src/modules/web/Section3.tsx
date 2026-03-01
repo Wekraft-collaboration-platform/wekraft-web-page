@@ -47,7 +47,7 @@ const Section3 = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl  font-sans tracking-tight text-slate-900 mb-8 max-w-4xl"
+            className="text-4xl  font-sans tracking-tight text-slate-900 mb-8 max-w-4xl"
           >
             Empowering the next generation of <br />
             <span className="font-semibold text-blue-600">

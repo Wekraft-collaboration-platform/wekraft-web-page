@@ -1,8 +1,25 @@
 "use client";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
 const Section4 = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [activeTab, setActiveTab] = useState("CI/CD");
+
+  const menuItems = [
+    "CI/CD",
+    "issue tracker",
+    "Task Management",
+    "push event review",
+    "auto assign",
+    "repo heatmap",
+    "timeline tracker",
+
+  ];
+
   return (
     <div className="min-h-screen w-full bg-black md:py-20 relative">
       <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#80808022_1px,transparent_1px),linear-gradient(to_bottom,#80808022_1px,transparent_1px)] bg-size-[36px_36px] z-0" />
@@ -39,6 +56,7 @@ const Section4 = () => {
           
           <div className="relative overflow-hidden rounded-3xl bg-black">
             <video
+              ref={videoRef}
               autoPlay
               muted
               loop
@@ -53,8 +71,22 @@ const Section4 = () => {
           </div>
         </div>
 
-        {/* Ambient Glow underneath for better depth */}
-        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[80%] h-40 bg-blue-500/5 blur-[120px] rounded-full pointer-events-none z-0" />
+        {/* VIDEO BUTTONS TO PLAY SPEIFIC PART OF VIDEO */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-8 px-4 z-10 relative border py-1.5 border-white/30 bg-gray-950/30 rounded-lg">
+          {menuItems.map((item) => (
+            <Button
+              key={item}
+              variant="ghost"
+              onClick={() => setActiveTab(item)}
+              className={cn(
+                "capitalize text-gray-400 hover:border border-white hover:bg-transparent hover:text-white transition-all duration-150 rounded-md px-6 py-2",
+                activeTab === item && "bg-white/70 border border-white text-black"
+              )}
+            >
+              {item}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );
