@@ -19,7 +19,7 @@ import {
 import { Orb } from "@/components/ui/Orb";
 import { Button } from "@/components/ui/button";
 
-/* ───────────────── animated connector line ───────────────── */
+
 const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
   const coords = d.match(/M\s+([\d.]+)\s+([\d.]+)/);
   const startX = coords ? coords[1] : "0";
@@ -38,7 +38,6 @@ const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay, ease: "easeInOut" }}
       />
-      {/* Moving pulse focus */}
       <motion.path
         d={d}
         fill="none"
@@ -59,7 +58,6 @@ const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
           ease: "easeInOut",
         }}
       />
-      {/* Endpoint Dot at the card junction */}
       <motion.circle
         cx={startX}
         cy={startY}
@@ -117,7 +115,6 @@ const Section2 = () => {
         <div className="absolute top-1/3 left-1/3 w-full max-w-[520px] h-[500px] bg-blue-500/30 blur-[160px] rounded-full pointer-events-none" />
       </div>
       <div className="h-full flex flex-col lg:p-20 md:p-12 p-6 max-w-7xl mx-auto">
-        {/* Header Section */}
         <header className="w-full max-w-6xl mb-12 mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -136,9 +133,7 @@ const Section2 = () => {
           </h1>
         </header>
 
-        {/* ───────── Orb + Cards Grid ───────── */}
         <main className="relative w-full py-16 md:py-24 mx-auto">
-          {/* SVG connector lines (absolute, behind cards) */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none z-0"
             viewBox="0 0 1000 600"
@@ -339,7 +334,6 @@ const Section2 = () => {
                 </div>
               </FeatureCard>
 
-              {/* Insights */}
               <FeatureCard delay={0.4}>
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-7 h-7 rounded-lg bg-blue-500/15 flex items-center justify-center">

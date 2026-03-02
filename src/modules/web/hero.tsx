@@ -132,8 +132,8 @@ const Hero = () => {
           <div className="absolute inset-x-60 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px w-1/4" />
 
           <p className="text-gray-400 text-[20px] mt-5 font-sans tracking-tight text-pretty text-center">
-            Autonomous agents that plan, manage, and ship projects. Match
-            talent, Contribute Open-source, and execute workflows autonomously.
+            Autonomous agents that plan, manage, and track your project. Match
+            talent, Collaborate seamlessly, and execute workflows autonomously.
             Build together — frictionless.
           </p>
 
