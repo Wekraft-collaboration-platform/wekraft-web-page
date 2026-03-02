@@ -4,7 +4,15 @@ import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
+const navLinks: { label: string; href: string }[] = [
+  { label: "Home", href: "/web" },
+  { label: "Pricing", href: "/web/pricing" },
+  { label: "Reach us", href: "/" },
+  { label: "Contribute", href: "/" },
+];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -45,21 +53,22 @@ const Navbar = () => {
         </h1>
 
         <div className="hidden md:flex gap-8 text-sm text-white/80">
-          {["Home", "Features", "Pricing", "Contact", "Docs"].map((item) => (
-            <a
-              key={item}
+          {navLinks.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
               className="
         relative cursor-pointer
         transition-colors duration-200
-        hover:text-primary
+        hover:text-white
         after:absolute after:left-0 after:-bottom-1
-        after:h-[2px] after:w-0 after:bg-primary
+        after:h-[2px] after:w-0 after:bg-white
         after:transition-all after:duration-300
         hover:after:w-full
       "
             >
-              {item}
-            </a>
+              {label}
+            </Link>
           ))}
         </div>
 
