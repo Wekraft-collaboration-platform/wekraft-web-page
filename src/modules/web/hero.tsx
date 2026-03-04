@@ -153,7 +153,7 @@ const Hero = () => {
                 placeholder="Enter your email..."
                 className="w-96 h-9 bg-neutral-300"
               />
-              <Button className="h-10! cursor-pointer bg-blue-800 border border-white/30">
+              <Button className="h-10! cursor-pointer bg-blue-800 hover:bg-blue-900 border border-white/30">
                 Join Waitlist <MousePointerBan className="w-4 h-4" />
               </Button>
             </div>

@@ -13,8 +13,8 @@ import {
   Users,
   Activity,
   Lock,
-  Headphones,
   BarChart3,
+  Users2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -61,20 +61,20 @@ const plans: Plan[] = [
     key: "team",
     name: "Team",
     badge: "Most popular",
-    price: { monthly: 14, annual: 11 },
+    price: { monthly: 18, annual: 18 },
     description:
       "For serious teams that want to ship faster and collaborate smarter.",
     cta: "Start free trial",
     ctaHref: "/auth",
     highlighted: true,
-    icon: <Zap className="h-5 w-5" />,
+    icon: <Users2 className="h-5 w-5" />,
   },
   {
     key: "studio",
     name: "Studio",
-    price: { monthly: 28, annual: 22 },
+    price: { monthly: 40, annual: 40 },
     description:
-      "For scaling product studios that need advanced control and dedicated support.",
+      "For scaling product studios that need advanced control and flexible pricing.",
     cta: "Talk to us",
     ctaHref: "mailto:contact@wekraft.com",
     highlighted: false,
@@ -82,27 +82,76 @@ const plans: Plan[] = [
   },
 ];
 
-const featureCategories: { title: string; icon: React.ReactNode; rows: FeatureRow[] }[] = [
+const featureCategories: {
+  title: string;
+  icon: React.ReactNode;
+  rows: FeatureRow[];
+}[] = [
   {
     title: "Collaboration",
     icon: <Users className="h-4 w-4" />,
     rows: [
-      { label: "Team members", hobby: "Up to 3", team: "Up to 15", studio: "Unlimited" },
-      { label: "Repositories", hobby: "5", team: "Unlimited", studio: "Unlimited" },
+      {
+        label: "Team members",
+        hobby: "Up to 3",
+        team: "Up to 15",
+        studio: "Unlimited",
+      },
+      {
+        label: "Repositories",
+        hobby: "5",
+        team: "Unlimited",
+        studio: "Unlimited",
+      },
       { label: "Skill-based matching", hobby: true, team: true, studio: true },
-      { label: "Pair programming sessions", hobby: false, team: true, studio: true },
-      { label: "Cross-team access controls", hobby: false, team: false, studio: true },
+      {
+        label: "Pair programming sessions",
+        hobby: false,
+        team: true,
+        studio: true,
+      },
+      {
+        label: "Cross-team access controls",
+        hobby: false,
+        team: false,
+        studio: true,
+      },
     ],
   },
   {
     title: "AI & Automation",
     icon: <BrainCircuit className="h-4 w-4" />,
     rows: [
-      { label: "AI code suggestions", hobby: "50/month", team: "Unlimited", studio: "Unlimited" },
-      { label: "Agentic code guardrails", hobby: false, team: true, studio: true },
-      { label: "Auto-assign reviewers", hobby: false, team: true, studio: true },
-      { label: "Issue detection agents", hobby: false, team: "5 agents", studio: "Unlimited" },
-      { label: "Workflow orchestration", hobby: false, team: true, studio: true },
+      {
+        label: "AI code suggestions",
+        hobby: "50/month",
+        team: "Unlimited",
+        studio: "Unlimited",
+      },
+      {
+        label: "Agentic code guardrails",
+        hobby: false,
+        team: true,
+        studio: true,
+      },
+      {
+        label: "Auto-assign reviewers",
+        hobby: false,
+        team: true,
+        studio: true,
+      },
+      {
+        label: "Issue detection agents",
+        hobby: false,
+        team: "5 agents",
+        studio: "Unlimited",
+      },
+      {
+        label: "Workflow orchestration",
+        hobby: false,
+        team: true,
+        studio: true,
+      },
       { label: "Custom AI policies", hobby: false, team: false, studio: true },
     ],
   },
@@ -112,7 +161,12 @@ const featureCategories: { title: string; icon: React.ReactNode; rows: FeatureRo
     rows: [
       { label: "Repo heatmap", hobby: false, team: true, studio: true },
       { label: "Timeline tracker", hobby: false, team: true, studio: true },
-      { label: "Team velocity reports", hobby: false, team: true, studio: true },
+      {
+        label: "Team velocity reports",
+        hobby: false,
+        team: true,
+        studio: true,
+      },
       { label: "Custom dashboards", hobby: false, team: false, studio: true },
       { label: "Export & API access", hobby: false, team: false, studio: true },
     ],
@@ -123,7 +177,12 @@ const featureCategories: { title: string; icon: React.ReactNode; rows: FeatureRo
     rows: [
       { label: "SSO / SAML", hobby: false, team: false, studio: true },
       { label: "Audit logs", hobby: false, team: true, studio: true },
-      { label: "Priority support", hobby: false, team: "Email", studio: "Dedicated Slack" },
+      {
+        label: "Priority support",
+        hobby: false,
+        team: "Email",
+        studio: "Dedicated Slack",
+      },
       { label: "SLA guarantee", hobby: false, team: false, studio: true },
       { label: "Onboarding session", hobby: false, team: false, studio: true },
     ],
@@ -145,7 +204,7 @@ const faqs = [
   },
   {
     q: "Is the annual billing discount applied automatically?",
-    a: "Yes — toggle to annual billing on the pricing page or in your account settings, and the discounted rate is applied immediately. You'll save ~21% compared to monthly billing.",
+    a: "We currently offer simple monthly billing to keep things flexible for your team. You can cancel or change your plan at any time.",
   },
   {
     q: "Do you offer discounts for open-source projects?",
@@ -163,7 +222,7 @@ const FeatureValue = ({ value }: { value: string | boolean }) => {
   if (value === true)
     return (
       <span className="flex justify-center">
-        <Check className="h-4 w-4 text-sky-400" />
+        <Check className="h-4 w-4 text-blue-400" />
       </span>
     );
   if (value === false)
@@ -224,24 +283,22 @@ const FaqItem = ({ q, a, idx }: { q: string; a: string; idx: number }) => {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 const Pricing = () => {
-  const [annual, setAnnual] = useState(false);
-
   return (
-    <div className="bg-black min-h-screen w-full selection:bg-sky-500/20">
+    <div className="bg-black min-h-screen w-full selection:bg-blue-500/20">
       {/* ── Hero ── */}
-      <section className="relative pt-32 pb-24 px-4 overflow-hidden">
+      <section className="relative pt-32 pb-24 px-4">
         {/* Background grid */}
         <div className="absolute inset-0 z-0 opacity-[0.08]">
           <div className="h-full w-full bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] bg-size-[40px_40px]" />
         </div>
         {/* Radial glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-sky-500/10 blur-[120px] pointer-events-none rounded-full" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-blue-500/10 blur-[120px] pointer-events-none rounded-full" />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 max-w-4xl mx-auto text-center pt-10">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/5 px-4 py-1.5 text-xs font-semibold text-sky-400 uppercase tracking-widest"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/15 px-4 py-1.5 text-xs font-semibold text-white uppercase tracking-widest"
           >
             <Sparkles className="h-3 w-3" />
             Pricing Plans
@@ -254,7 +311,7 @@ const Pricing = () => {
             className="text-5xl md:text-6xl font-light tracking-tight text-white mb-6 leading-[1.1]"
           >
             One platform.{" "}
-            <span className="bg-linear-to-r from-sky-400 to-blue-500 bg-clip-text font-medium text-transparent">
+            <span className="bg-linear-to-r from-blue-400 to-blue-600 bg-clip-text font-medium text-transparent">
               Everything
             </span>{" "}
             your
@@ -272,35 +329,16 @@ const Pricing = () => {
             team.
           </motion.p>
 
-          {/* Annual Toggle */}
+          {/* Billing Cycle Info */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md"
+            className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-2 backdrop-blur-md"
           >
-            <span className={cn("text-sm transition-colors", !annual ? "text-white" : "text-white/40")}>
-              Monthly
-            </span>
-            <button
-              title="Toggle annual billing"
-              onClick={() => setAnnual((a) => !a)}
-              className={cn(
-                "relative h-6 w-10 rounded-full transition-colors duration-300",
-                annual ? "bg-sky-500" : "bg-white/15"
-              )}
-            >
-              <motion.div
-                animate={{ x: annual ? 18 : 2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="absolute top-1 h-4 w-4 rounded-full bg-white shadow"
-              />
-            </button>
-            <span className={cn("text-sm transition-colors flex items-center gap-1.5", annual ? "text-white" : "text-white/40")}>
-              Annual
-              <span className="text-[10px] font-bold text-sky-400 bg-sky-500/10 border border-sky-500/20 rounded-full px-2 py-0.5">
-                ~21% off
-              </span>
+            <span className="text-sm text-white/70 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-blue-400" />
+              Billed Monthly
             </span>
           </motion.div>
         </div>
@@ -310,7 +348,6 @@ const Pricing = () => {
       <section className="max-w-6xl mx-auto px-4 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {plans.map((plan, idx) => {
-            const price = annual ? plan.price.annual : plan.price.monthly;
             return (
               <motion.div
                 key={plan.key}
@@ -321,14 +358,14 @@ const Pricing = () => {
                 className={cn(
                   "relative flex flex-col rounded-3xl border p-7 transition-all duration-300 hover:-translate-y-1",
                   plan.highlighted
-                    ? "bg-linear-to-b from-sky-950/60 to-gray-950 border-sky-500/40 shadow-[0_0_60px_rgba(56,189,248,0.12)]"
-                    : "bg-linear-to-b from-gray-900 to-gray-950 border-white/5 hover:border-white/10"
+                    ? "bg-linear-to-b from-blue-950 to-gray-950 border-blue-500/40 shadow-[0_0_60px_rgba(37,99,235,0.1)] "
+                    : "bg-linear-to-b from-gray-900 to-gray-950 border-white/5 hover:border-white/10",
                 )}
               >
                 {/* Popular badge */}
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-sky-400 bg-sky-500/20 border border-sky-500/40 rounded-full px-3 py-1">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-white bg-blue-600 border border-blue-400/50 rounded-full px-4 py-1.5 shadow-[0_0_20px_rgba(37,99,235,0.4)]">
                       {plan.badge}
                     </span>
                   </div>
@@ -336,44 +373,59 @@ const Pricing = () => {
 
                 {/* Plan header */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-semibold text-white text-lg">{plan.name}</span>
-                  <div className={cn(
-                    "h-9 w-9 rounded-xl flex items-center justify-center border",
-                    plan.highlighted
-                      ? "bg-sky-500/20 border-sky-400/30 text-sky-400"
-                      : "bg-white/5 border-white/10 text-white/40"
-                  )}>
+                  <span className="font-semibold text-white text-lg">
+                    {plan.name}
+                  </span>
+                  <div
+                    className={cn(
+                      "h-9 w-9 rounded-xl flex items-center justify-center border",
+                      plan.highlighted
+                        ? "bg-blue-500/20 border-blue-400/30 text-blue-400"
+                        : "bg-white/5 border-white/10 text-white/40",
+                    )}
+                  >
                     {plan.icon}
                   </div>
                 </div>
 
-                <p className="text-sm text-white/40 leading-relaxed mb-8">{plan.description}</p>
+                <p className="text-sm text-white/40 leading-relaxed mb-8">
+                  {plan.description}
+                </p>
 
                 {/* Price */}
-                <div className="mb-8">
-                  {price === 0 ? (
+                <div className="mb-8 overflow-hidden">
+                  {plan.key === "hobby" ? (
                     <div className="text-5xl font-bold text-white">Free</div>
+                  ) : plan.key === "studio" ? (
+                    <div className="flex flex-col gap-1">
+                      <div className="text-4xl font-bold text-white">
+                        Custom
+                      </div>
+                      <p className="text-blue-400/80 text-xs font-semibold uppercase tracking-wider">
+                        Starts from $40/mo
+                      </p>
+                    </div>
                   ) : (
                     <div className="flex items-end gap-1">
-                      <span className="text-4xl font-bold text-white">${price}</span>
-                      <span className="text-white/40 text-sm mb-1.5">/user/mo</span>
+                      <span className="text-4xl font-bold text-white">$18</span>
+                      <span className="text-white/40 text-sm mb-1.5">
+                        /user/mo
+                      </span>
                     </div>
                   )}
-                  {price !== 0 && (
-                    <p className="text-xs text-white/30 mt-1">
-                      {annual ? "billed annually" : "billed monthly"}
-                    </p>
+                  {plan.key !== "hobby" && (
+                    <p className="text-xs text-white/30 mt-1">Billed monthly</p>
                   )}
                 </div>
 
                 {/* CTA */}
-                <Link href={plan.ctaHref} className="mb-8">
+                <Link href={plan.ctaHref} className="mb-8 z-10">
                   <Button
                     className={cn(
                       "w-full rounded-xl h-11 text-sm font-semibold transition-all duration-300",
                       plan.highlighted
-                        ? "bg-sky-500 hover:bg-sky-400 text-white shadow-[0_0_30px_rgba(56,189,248,0.3)]"
-                        : "bg-white/8 hover:bg-white/15 text-white border border-white/10"
+                        ? "bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_30px_rgba(37,99,235,0.3)]"
+                        : "bg-white/8 hover:bg-white/15 text-white border border-white/10",
                     )}
                   >
                     {plan.cta}
@@ -387,40 +439,41 @@ const Pricing = () => {
                 <ul className="flex flex-col gap-3">
                   {(plan.key === "hobby"
                     ? [
-                        "Up to 3 team members",
-                        "5 repositories",
-                        "Skill-based matching",
-                        "50 AI suggestions/month",
-                        "Community support",
+                        "2 Projects",
+                        "Up to 4 team members/project",
+                        "20 Reviews/month",
+                        "Community Features",
+                        "5 Team joining requests/month",
+                        "Basic Help support",
                       ]
                     : plan.key === "team"
-                    ? [
-                        "Everything in Hobby",
-                        "Up to 15 team members",
-                        "Unlimited repositories",
-                        "Agentic code guardrails",
-                        "Auto-assign reviewers",
-                        "Repo heatmap & timeline",
-                        "5 AI agents",
-                        "Email support",
-                      ]
-                    : [
-                        "Everything in Team",
-                        "Unlimited members & agents",
-                        "Custom AI policies",
-                        "SSO / SAML",
-                        "Advanced audit logs",
-                        "Custom dashboards & API",
-                        "Dedicated Slack support",
-                        "SLA guarantee",
-                        "Onboarding session",
-                      ]
+                      ? [
+                          "10 Projects",
+                          "Up to 10 team members/project",
+                          "100 Reviews/month",
+                          "Auto-assign Issues",
+                          "Repo heatmap & Intelligence",
+                          "Voice PM",
+                          "Unlimited Team joining requests",
+                          "Dedicated Help support",
+                        ]
+                      : [
+                          "Everything in Team",
+                          "Unlimited members & agents",
+                          "Custom AI policies",
+                          "Advanced audit logs",
+                          "Custom dashboards & API",
+                          "Dedicated Slack support",
+                        ]
                   ).map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm text-white/60">
+                    <li
+                      key={f}
+                      className="flex items-start gap-2.5 text-sm text-white/60"
+                    >
                       <Check
                         className={cn(
                           "h-4 w-4 shrink-0 mt-0.5",
-                          plan.highlighted ? "text-sky-400" : "text-white/30"
+                          plan.highlighted ? "text-blue-400" : "text-white/30",
                         )}
                       />
                       {f}
@@ -441,7 +494,7 @@ const Pricing = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-bold uppercase tracking-widest text-sky-400/80 mb-4">
+          <p className="text-xs font-bold uppercase tracking-widest text-blue-400/80 mb-4">
             Compare Plans
           </p>
           <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">
@@ -460,7 +513,7 @@ const Pricing = () => {
                 key={p.key}
                 className={cn(
                   "p-5 text-center text-sm font-semibold",
-                  p.highlighted ? "text-sky-400" : "text-white/60"
+                  p.highlighted ? "text-blue-400" : "text-white/60",
                 )}
               >
                 {p.name}
@@ -474,7 +527,7 @@ const Pricing = () => {
               {/* Category header */}
               <div className="grid grid-cols-4 border-b border-white/5">
                 <div className="col-span-4 px-5 py-3.5 flex items-center gap-2 bg-white/1.5">
-                  <span className="text-sky-400/70">{cat.icon}</span>
+                  <span className="text-blue-400/70">{cat.icon}</span>
                   <span className="text-xs font-bold uppercase tracking-wider text-white/30">
                     {cat.title}
                   </span>
@@ -492,7 +545,7 @@ const Pricing = () => {
                   <div className="flex items-center justify-center px-4 py-4 border-l border-white/4">
                     <FeatureValue value={row.hobby} />
                   </div>
-                  <div className="flex items-center justify-center px-4 py-4 border-l border-white/4 bg-sky-500/3">
+                  <div className="flex items-center justify-center px-4 py-4 border-l border-white/4 bg-blue-500/3">
                     <FeatureValue value={row.team} />
                   </div>
                   <div className="flex items-center justify-center px-4 py-4 border-l border-white/4">
@@ -513,7 +566,7 @@ const Pricing = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-bold uppercase tracking-widest text-sky-400/80 mb-4">
+          <p className="text-xs font-bold uppercase tracking-widest text-blue-400/80 mb-4">
             FAQ
           </p>
           <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight mb-4">
@@ -523,7 +576,7 @@ const Pricing = () => {
             Can&apos;t find your answer?{" "}
             <a
               href="mailto:contact@wekraft.com"
-              className="text-sky-400 hover:text-sky-300 transition-colors underline underline-offset-2"
+              className="text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2"
             >
               Ask us directly.
             </a>
