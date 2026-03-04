@@ -10,7 +10,7 @@ import { ArrowRight, TimerIcon, TimerReset } from "lucide-react";
 const navLinks: { label: string; href: string }[] = [
   { label: "Home", href: "/web" },
   { label: "Pricing", href: "/web/pricing" },
-  { label: "Reach us", href: "/" },
+  { label: "Reach us", href: "/web/reach-us" },
   { label: "Contribute", href: "/" },
 ];
 
