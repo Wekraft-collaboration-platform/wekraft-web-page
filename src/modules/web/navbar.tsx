@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, TimerIcon } from "lucide-react";
+import { ArrowRight, TimerIcon, TimerReset } from "lucide-react";
 
 const navLinks: { label: string; href: string }[] = [
   { label: "Home", href: "/web" },
@@ -75,16 +75,17 @@ const Navbar = () => {
         <Button
           size="sm"
           variant={'outline'}
+          onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
           className={clsx(
-            "duration-300 hover:scale-105 transition-all  font-inter text-sm text-white bg-transparent border border-white/30",
+            "duration-300 hover:scale-105 transition-all cursor-pointer font-inter text-sm text-white bg-transparent border border-white/30",
             scrolled && "px-4 py-1.5 text-xs"
           )}
         >
          {
             scrolled ? (
                 <>
-                Get Started
-                <ArrowRight className="ml-2" />
+                Wait List
+                <TimerReset className="ml-2" />
                 </>
             ) : (
                 <>

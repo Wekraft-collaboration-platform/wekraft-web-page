@@ -5,10 +5,17 @@ import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Spotlight } from "@/components/ui/spotlight";
-import { ArrowRightIcon, LucideRocket, LucideTrendingUp } from "lucide-react";
+import {
+  ArrowRightIcon,
+  LaptopMinimalCheck,
+  LucideRocket,
+  LucideTrendingUp,
+  MousePointerBan,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import { Input } from "@/components/ui/input";
 
 const FloatingCursor = ({
   name,
@@ -73,7 +80,7 @@ const FloatingCursor = ({
 
 const Hero = () => {
   return (
-    <div className="min-h-screen max-h-[195vh] w-full  bg-black relative overflow-hidden">
+    <div className="min-h-screen max-h-[198vh] w-full  bg-black relative overflow-hidden">
       <div className="">
         <Spotlight
           className="-top-40 left-0 md:-top-20 md:left-60"
@@ -90,7 +97,7 @@ const Hero = () => {
       />
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
 
-      <main className="absolute inset-0 flex flex-col items-center justify-center md:-mt-8">
+      <main className="absolute inset-0 flex flex-col items-center justify-center pt-20">
         <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-20">
           <span>✨</span>
           <Separator orientation="vertical" className="mx-2 bg-gray-600" />
@@ -138,20 +145,21 @@ const Hero = () => {
             Build together — frictionless.
           </p>
 
-          <div className="flex items-center justify-center gap-8 mt-10">
-            <Link href="/auth">
-              <Button className="bg-linear-to-b from-white to-slate-200  text-sm font-medium text-black hover:from-white hover:to-white hover:scale-105 duration-200 cursor-pointer">
-                Start Building <LucideRocket className="ml-2 size-5" />
+          <div className="flex flex-col items-center justify-center gap-4 mt-14">
+            {/* WAITING LIST & EARLY ACCESS */}
+            <div className="flex items-center gap-4">
+              <Input
+                type="email"
+                placeholder="Enter your email..."
+                className="w-96 h-9 bg-neutral-300"
+              />
+              <Button className="h-10! cursor-pointer bg-blue-800 border border-white/30">
+                Join Waitlist <MousePointerBan className="w-4 h-4" />
               </Button>
-            </Link>
-
-            <Button
-              size="sm"
-              className="text-white text-xs font-inter"
-              variant="ghost"
-            >
-              Request Demo <ArrowRightIcon className="ml-2 size-5" />
-            </Button>
+            </div>
+            <p className="text-gray-400 text-sm mt-5 font-sans tracking-tight text-pretty text-center">
+              Join the waitlist to get early access to WeKraft. <LaptopMinimalCheck className="w-4 h-4 inline" />
+            </p>
           </div>
         </div>
 
