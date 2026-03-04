@@ -11,17 +11,13 @@ const Home = () => {
   return (
     <div className="bg-black scroll-smooth selection:bg-blue-500/30">
       <Navbar />
-      <div className="relative z-0">
-        <Hero />
-        <Section1 />
-        <Section2 />
-      </div>
-      <div className="relative z-10 shadow-[0_-50px_100px_rgba(0,0,0,0.3)]">
-        <Section3 />
-      </div>
+      <Hero />
+      <Section1 />
+      <Section2 />
+      <Section3 />
       <NewSection4 />
-      <Section5/>
-      <Footer/>
+      <Section5 />
+      <Footer />
     </div>
   );
 };

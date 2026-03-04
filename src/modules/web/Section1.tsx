@@ -67,7 +67,7 @@ const Section1 = () => {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -99,9 +99,9 @@ const Section1 = () => {
                   <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.04]">
                     <div className="flex items-center gap-2">
                       <div className="flex gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
                       </div>
                       <span className="text-[11px] text-neutral-600 ml-3 font-mono">
                         app/dashboard/page.tsx
@@ -346,62 +346,58 @@ const Section1 = () => {
                   <BarChart3 className="w-4 h-4 text-blue-400" />
                 </div>
                 <span className="text-xs font-semibold text-neutral-500 uppercase tracking-widest">
-                  Analytics
+                  Integration
                 </span>
               </div>
 
               <h3 className="text-xl font-semibold text-white tracking-tight mb-2">
-                Deep team insights
+                Integrate with your favorite platforms.
               </h3>
               <p className="text-neutral-500 text-sm leading-relaxed mb-8">
-                Understand velocity, throughput, and bottlenecks at a glance.
+                Easy integration with your favorite platforms. Sync all with MCP servers.
               </p>
 
-              <div className="mt-auto space-y-4 py-6 px-3 bg-gray-900 rounded-lg">
-                {[
-                  {
-                    label: "Sprint velocity",
-                    value: "92%",
-                    width: "92%",
-                    color: "bg-emerald-500",
-                  },
-                  {
-                    label: "Code quality",
-                    value: "88%",
-                    width: "88%",
-                    color: "bg-blue-500",
-                  },
-                  {
-                    label: "Deploy frequency",
-                    value: "76%",
-                    width: "76%",
-                    color: "bg-violet-500",
-                  },
-                ].map((stat, i) => (
-                  <div key={i} className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] text-neutral-500 font-medium">
-                        {stat.label}
-                      </span>
-                      <span className="text-[11px] text-neutral-400 font-semibold tabular-nums">
-                        {stat.value}
-                      </span>
-                    </div>
-                    <div className="h-1 w-full bg-white/[0.04] rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: stat.width }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 1.2,
-                          delay: 0.3 + i * 0.15,
-                          ease: "easeOut",
-                        }}
-                        className={`h-full rounded-full ${stat.color}`}
-                      />
-                    </div>
-                  </div>
-                ))}
+              {/* Tools */}
+              <div className="mt-auto">
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { src: "/github.png", name: "GitHub" },
+                    { src: "/notion.png", name: "Notion", size: "w-16 h-16" },
+                    { src: "/slack.png", name: "Slack" },
+                    { src: "/calender.png", name: "Calendar" },
+                    { src: "/drive.png", name: "Drive" },
+                    { src: "/docs.png", name: "Docs" },
+                  ].map((tool, i) => (
+                    <motion.div
+                      key={tool.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: 0.2 + i * 0.07, ease: "easeOut" }}
+                      whileHover={{ scale: 1.08, y: -2 }}
+                      className="group flex flex-col items-center gap-2 cursor-pointer"
+                    >
+                      <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center group-hover:border-white/[0.15] group-hover:bg-white/[0.07] transition-all duration-300">
+                        <img
+                          src={tool.src}
+                          alt={tool.name}
+                          className={`${tool.size ?? 'w-8 h-8'} object-contain`}
+                        />
+                      </div>
+                      <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400 transition-colors font-medium">{tool.name}</span>
+                    </motion.div>
+                  ))}
+                </div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.7 }}
+                  className="mt-5 flex items-center gap-2"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                  <span className="text-[11px] text-neutral-500">+ more integrations via MCP servers</span>
+                </motion.div>
               </div>
             </div>
           </motion.div>
