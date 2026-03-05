@@ -272,9 +272,9 @@ const Section2 = () => {
             </div>
 
             <div className="flex items-center justify-center">
-              <div className="relative">
-                <div className="absolute -inset-12 bg-blue-500/10 rounded-full blur-3xl animate-pulse pointer-events-none" />
-                <div className="bg-gray-800 relative h-40 w-40  rounded-full p-1.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]">
+              <div className="relative group cursor-pointer hover:scale-105 transition-all duration-300">
+                <div className="absolute -inset-12 bg-blue-500/10 rounded-full blur-3xl animate-pulse pointer-events-none group-hover:bg-blue-500/30 group-hover:blur-2xl group-hover:animate-pulse transition-all duration-300" />
+                <div className="bg-gray-800 relative h-40 w-40 rounded-full p-1.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]">
                   <div className="bg-black h-full w-full overflow-hidden rounded-full shadow-[inset_0_0_12px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_0_12px_rgba(0,0,0,0.3)]">
                     <Orb
                       colors={BLUE_ORB}

@@ -48,18 +48,16 @@ const Section1 = () => {
           <motion.h2
             {...fadeUp}
             transition={{ ...fadeUp.transition, delay: 0.1 }}
-            className="text-5xl leading-[1.1] font-semibold tracking-[-0.03em] text-white mb-6"
+            className="text-5xl leading-[1.1] font-semibold tracking-[-0.03em] text-white mb-6 transition-all duration-700 hover:drop-shadow-[0_0_30px_rgba(59,130,246,0.4)] group cursor-default"
           >
-            Build with clarity.
-            <br />
-            <span className="bg-linear-to-r from-neutral-400 to-neutral-600 bg-clip-text text-transparent">
-              Ship with confidence.
-            </span>
-          </motion.h2>
+              <span className="group-hover:text-blue-50 transition-colors duration-500">Build with clarity,</span>
+              <br />
+              <span className="bg-linear-to-r from-neutral-400 to-neutral-600 bg-clip-text text-transparent group-hover:from-blue-400 group-hover:to-blue-600 transition-all duration-500">
+                craft with confidence.              </span>
+            </motion.h2>
 
-          <motion.p
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.2 }}
+            <motion.p
+              {...fadeUp}            transition={{ ...fadeUp.transition, delay: 0.2 }}
             className="text-lg text-neutral-500 leading-relaxed max-w-xl"
           >
             WeKraft combines intelligent automation, real-time collaboration,
@@ -326,8 +324,53 @@ const Section1 = () => {
                 craft faster
               </p>
             </div>
-            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-1/2 opacity-80">
+            <div className="absolute inset-0 w-[125%] -left-[12.5%] h-[125%] flex items-end justify-center top-[42%] opacity-80 pointer-events-none">
               <Globe />
+              {/* Premium Avatar Sequence */}
+              {[
+                { top: "0%", left: "15%", tag: "Tokyo", img: "https://i.pravatar.cc/100?img=11", delay: 0 },
+                { top: "10%", right: "20%", tag: "New York", img: "https://i.pravatar.cc/100?img=12", delay: 2.5 },
+                { top: "-5%", left: "28%", tag: "London", img: "https://i.pravatar.cc/100?img=13", delay: 5 },
+                { top: "5%", right: "32%", tag: "Sydney", img: "https://i.pravatar.cc/100?img=14", delay: 7.5 },
+              ].map((avatar, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute z-20 flex flex-col items-center pointer-events-none"
+                  style={{ top: avatar.top, left: avatar.left, right: avatar.right }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ 
+                    opacity: [0, 1, 1, 0], 
+                    y: [10, 0, 0, -10],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: avatar.delay,
+                  }}
+                >
+                  <div className="relative group flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full border border-white/20 bg-black/60 p-0.5 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.15)] overflow-hidden z-10">
+                      <img src={avatar.img} alt={avatar.tag} className="w-full h-full rounded-full object-cover opacity-90" />
+                    </div>
+                    <div className="absolute -bottom-6 px-2 py-0.5 bg-black/80 border border-white/10 rounded-md text-[9px] font-medium text-white/90 backdrop-blur-md whitespace-nowrap tracking-wide z-20">
+                      {avatar.tag}
+                    </div>
+                  </div>
+                  {/* Line connecting to globe */}
+                  <motion.div
+                    className="w-px bg-gradient-to-b from-white/40 to-transparent mt-8"
+                    initial={{ height: 0 }}
+                    animate={{ height: ["0px", "50px", "50px", "0px"] }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: avatar.delay,
+                    }}
+                  />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
@@ -377,14 +420,14 @@ const Section1 = () => {
                       whileHover={{ scale: 1.08, y: -2 }}
                       className="group flex flex-col items-center gap-2 cursor-pointer"
                     >
-                      <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center group-hover:border-white/[0.15] group-hover:bg-white/[0.07] transition-all duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center group-hover:border-white/[0.15] group-hover:bg-white/[0.07] transition-all duration-75">
                         <img
                           src={tool.src}
                           alt={tool.name}
                           className={`${tool.size ?? 'w-8 h-8'} object-contain`}
                         />
                       </div>
-                      <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400 transition-colors font-medium">{tool.name}</span>
+                      <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400 transition-colors duration-75 font-medium">{tool.name}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -459,7 +502,7 @@ const Section1 = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4 + i * 0.1 }}
-                    className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg border border-white/[0.04] bg-white/[0.02]"
+                    className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg border border-white/[0.04] bg-white/[0.02] hover:bg-blue-500/5 hover:border-blue-500/30 hover:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-all duration-300 cursor-pointer"
                   >
                     {/* Avatar */}
                     <img

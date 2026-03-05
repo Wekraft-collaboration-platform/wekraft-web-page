@@ -79,6 +79,91 @@ const features = [
   },
 ];
 
+const ScrambleText = ({ text, isHovered }: { text: string; isHovered: boolean }) => {
+  const [displayText, setDisplayText] = React.useState(text);
+  
+  React.useEffect(() => {
+    if (!isHovered) {
+      setDisplayText(text);
+      return;
+    }
+    
+    let iterations = 0;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+    const interval = setInterval(() => {
+      setDisplayText(() => 
+        text.split("").map((letter, index) => {
+          if (index < iterations) return text[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("")
+      );
+      
+      if (iterations >= text.length) {
+        clearInterval(interval);
+      }
+      
+        iterations += 3;
+      }, 5);
+
+      return () => clearInterval(interval);
+    }, [isHovered, text]);
+
+    return (
+      <span className="inline-block">
+        {displayText}
+      </span>
+    );
+  };
+
+const FeatureCard = ({ f, index }: { f: typeof features[0], index: number }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+      className="group relative bg-white p-8 flex flex-col gap-6 hover:bg-neutral-50 transition-colors duration-300 overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Decorative distorted background boxes on hover */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent opacity-50 blur-xl"></div>
+        <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rotate-12 skew-x-12 scale-110 blur-[2px] transition-transform duration-700 group-hover:rotate-45 group-hover:skew-x-0" />
+        <div className="absolute right-12 top-12 w-16 h-16 bg-blue-500/5 -rotate-12 skew-y-12 blur-[1px] transition-transform duration-700 group-hover:-rotate-45 group-hover:skew-y-0" />
+        <div className="absolute right-0 bottom-0 w-32 h-32 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMzYjgyZjYiIGZpbGwtb3BhY2l0eT0iMC4yMCIvPgo8L3N2Zz4=')] opacity-30 skew-x-6 rotate-3 scale-110 mix-blend-multiply" />
+      </div>
+
+      {/* Illustrated icon */}
+      <motion.div
+        whileHover={{ y: -4, rotate: 2 }}
+        transition={{ type: "spring", stiffness: 300 }}
+        className="w-18 h-18 relative z-10"
+      >
+        {f.icon}
+      </motion.div>
+
+      <div className="relative z-10">
+        <div className="text-[11px] text-neutral-400 font-mono mb-2 tracking-widest">{f.num}</div>
+        <h3 className="text-[18px] font-semibold text-neutral-900 leading-snug mb-3 tracking-tight group-hover:text-blue-600 transition-colors duration-300">
+          <ScrambleText text={f.title} isHovered={isHovered} />
+        </h3>
+        <p className="text-[14px] text-neutral-500 leading-relaxed group-hover:text-neutral-600 transition-colors duration-300">
+          <ScrambleText text={f.desc} isHovered={isHovered} />
+        </p>
+      </div>
+
+      {/* Subtle hover arrow */}
+      <div className="mt-auto flex items-center gap-1.5 text-[13px] font-medium text-neutral-300 group-hover:text-blue-500 transition-colors duration-300 relative z-10">
+        <span>Learn more</span>
+        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
+      </div>
+    </motion.div>
+  );
+};
+
 const Section3 = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -93,7 +178,7 @@ const Section3 = () => {
     <motion.section
       ref={containerRef}
       style={{ y: yShift, opacity }}
-      className="relative w-full bg-white z-20 py-24 md:py-32 px-6 md:px-12 lg:px-20 rounded-t-[3rem] shadow-[0_-40px_80px_rgba(0,0,0,0.12)]"
+      className="relative w-full bg-[#FFFFEB] z-20 py-24 md:py-32 px-6 md:px-12 lg:px-20 rounded-t-[3rem] shadow-[0_-40px_80px_rgba(0,0,0,0.12)]"
     >
       {/* Subtle dot grid */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[size:28px_28px] opacity-60 rounded-t-[3rem]" />
@@ -116,10 +201,10 @@ const Section3 = () => {
               transition={{ ...fadeUp.transition, delay: 0.1 }}
               className="text-[2.4rem] md:text-[3rem] font-semibold tracking-[-0.03em] text-neutral-900 leading-[1.1] mb-6"
             >
-              Built for teams
-              <br />
-              who ship{" "}
-              <span className="text-blue-500">fast.</span>
+                Built for contributors
+                <br />
+                run by{" "}
+                <span className="text-blue-500">code.</span>
             </motion.h2>
 
             <motion.p
@@ -148,39 +233,7 @@ const Section3 = () => {
           {/* RIGHT — 2×2 feature grid */}
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-px bg-neutral-200 rounded-2xl overflow-hidden border border-neutral-200">
             {features.map((f, i) => (
-              <motion.div
-                key={f.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-                className="group bg-white p-8 flex flex-col gap-6 hover:bg-neutral-50 transition-colors duration-300"
-              >
-                {/* Illustrated icon */}
-                <motion.div
-                  whileHover={{ y: -4, rotate: 2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="w-18 h-18"
-                >
-                  {f.icon}
-                </motion.div>
-
-                <div>
-                  <div className="text-[11px] text-neutral-400 font-mono mb-2 tracking-widest">{f.num}</div>
-                  <h3 className="text-[18px] font-semibold text-neutral-900 leading-snug mb-3 tracking-tight">
-                    {f.title}
-                  </h3>
-                  <p className="text-[14px] text-neutral-500 leading-relaxed">
-                    {f.desc}
-                  </p>
-                </div>
-
-                {/* Subtle hover arrow */}
-                <div className="mt-auto flex items-center gap-1.5 text-[13px] font-medium text-neutral-300 group-hover:text-blue-500 transition-colors duration-300">
-                  <span>Learn more</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
-                </div>
-              </motion.div>
+              <FeatureCard key={f.num} f={f} index={i} />
             ))}
           </div>
 

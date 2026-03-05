@@ -65,6 +65,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center gap-4 bg-white/5 p-1.5  rounded-2xl border border-white/10 backdrop-blur-sm shadow-2xl">
             <Input
               type="email"
+              suppressHydrationWarning
               placeholder="Enter your email..."
               className="w-80 md:w-96 h-10 bg-neutral-900/50 border-white/10 text-white placeholder:text-gray-500 rounded-xl focus:ring-blue-500/50"
             />

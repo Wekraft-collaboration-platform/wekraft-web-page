@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 import { Input } from "@/components/ui/input";
+import { DashboardMockup } from "./DashboardMockup";
 
 const FloatingCursor = ({
   name,
@@ -98,8 +99,13 @@ const Hero = () => {
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
 
       <main className="absolute inset-0 flex flex-col items-center justify-center pt-20">
-        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-20">
-          <span>✨</span>
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-20 group">
+          <div className="relative flex items-center justify-center mr-1">
+            <div className="absolute inset-0 bg-amber-400/40 blur-[6px] rounded-full group-hover:bg-amber-400/60 transition-colors"></div>
+            <svg className="w-3.5 h-3.5 text-amber-400 animate-pulse relative z-10" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+          </div>
           <Separator orientation="vertical" className="mx-2 bg-gray-600" />
           <span className="text-gray-200">Better way to collaborate</span>
         </AnimatedShinyText>
@@ -110,7 +116,7 @@ const Hero = () => {
           </h1>
           <div className="flex items-center gap-4 -mt-4">
             <h1 className="text-8xl leading-[1.15] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
-              Ship Faster
+              Kraft Better
             </h1>
             <div className="self-center -mb-4 w-12 h-12 flex items-center justify-center rounded-lg bg-linear-to-br from-blue-300 to-blue-700">
               <LucideTrendingUp className="w-10 h-10 text-white" />
@@ -150,6 +156,7 @@ const Hero = () => {
             <div className="flex items-center gap-4">
               <Input
                 type="email"
+                suppressHydrationWarning
                 placeholder="Enter your email..."
                 className="w-96 h-9 bg-neutral-300"
               />
@@ -165,11 +172,7 @@ const Hero = () => {
 
         <div className="mt-20 w-full max-w-[84%] mx-auto">
           <div className="relative">
-            <HeroVideoDialog
-              videoSrc="https://www.youtube.com/embed/VIDEO_ID"
-              thumbnailSrc="/hero-img-1.png"
-              thumbnailAlt="Video thumbnail"
-            />
+            <DashboardMockup />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-black via-black/60 to-transparent" />
           </div>
         </div>
