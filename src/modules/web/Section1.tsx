@@ -326,42 +326,54 @@ const Section1 = () => {
                 craft faster
               </p>
             </div>
-            {/* <div>
+
+            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-[45%] scale-105 opacity-80">
+
+              <Globe />
               {[
-                { top: "40%", left: "42%", name: "Rox", color: "#6366f1", delay: 0.4, img: "https://i.pravatar.cc/40?img=11" },
-                { top: "42%", left: "72%", name: "Sarah", color: "#3b82f6", delay: 0.6, img: "https://i.pravatar.cc/40?img=47" },
-                { top: "38%", left: "18%", name: "Aryan", color: "#10b981", delay: 0.8, img: "https://i.pravatar.cc/40?img=12" },
-                { top: "50%", left: "8%", name: "Mia", color: "#f59e0b", delay: 1.0, img: "https://i.pravatar.cc/40?img=45" },
-              ].map((dev, i) => (
+                { top: "0%", left: "15%", tag: "Tokyo", img: "https://i.pravatar.cc/100?img=11", delay: 0 },
+                { top: "10%", right: "20%", tag: "New York", img: "https://i.pravatar.cc/100?img=12", delay: 2.5 },
+                { top: "-5%", left: "28%", tag: "London", img: "https://i.pravatar.cc/100?img=13", delay: 5 },
+                { top: "5%", right: "32%", tag: "Sydney", img: "https://i.pravatar.cc/100?img=14", delay: 7.5 },
+              ].map((avatar, i) => (
                 <motion.div
-                  key={dev.name}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: dev.delay, type: "spring", stiffness: 200, damping: 15 }}
-                  className="absolute z-20 flex flex-col items-center gap-1 pointer-events-none"
-                  style={{ top: dev.top, left: dev.left }}
+                  key={i}
+                  className="absolute z-20 flex flex-col items-center pointer-events-none"
+                  style={{ top: avatar.top, left: avatar.left, right: avatar.right }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: [0, 1, 1, 0],
+                    y: [10, 0, 0, -10],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: avatar.delay,
+                  }}
                 >
-                  <div
-                    className="px-2 py-0.5 rounded-full text-[9px] font-bold text-white whitespace-nowrap mb-0.5"
-                    style={{ backgroundColor: dev.color }}
-                  >
-                    {dev.name}
+                  <div className="relative group flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full border border-white/20 bg-black/60 p-0.5 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.15)] overflow-hidden z-10">
+                      <img src={avatar.img} alt={avatar.tag} className="w-full h-full rounded-full object-cover opacity-90" />
+                    </div>
+                    <div className="absolute -bottom-6 px-2 py-0.5 bg-black/80 border border-white/10 rounded-md text-[9px] font-medium text-white/90 backdrop-blur-md whitespace-nowrap tracking-wide z-20">
+                      {avatar.tag}
+                    </div>
                   </div>
-                  <div className="w-px h-3" style={{ background: `linear-gradient(to bottom, ${dev.color}, transparent)` }} />
+                  {/* Line connecting to globe */}
                   <motion.div
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
-                    className="w-8 h-8 rounded-full border-1 overflow-hidden shadow-lg"
-                    style={{ borderColor: dev.color, boxShadow: `0 0 12px ${dev.color}66` }}
-                  >
-                    <img src={dev.img} alt={dev.name} className="w-full h-full object-cover" />
-                  </motion.div>
+                    className="w-px bg-gradient-to-b from-white/40 to-transparent mt-8"
+                    initial={{ height: 0 }}
+                    animate={{ height: ["0px", "50px", "50px", "0px"] }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: avatar.delay,
+                    }}
+                  />
                 </motion.div>
               ))}
-            </div> */}
-            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-[45%] scale-105 opacity-80">
-              <Globe />
             </div>
           </motion.div>
 
