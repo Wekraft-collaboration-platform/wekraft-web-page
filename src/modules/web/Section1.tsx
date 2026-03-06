@@ -62,8 +62,8 @@ const Section1 = () => {
             transition={{ ...fadeUp.transition, delay: 0.2 }}
             className="text-lg text-neutral-500 leading-relaxed max-w-xl"
           >
-            WeKraft combines intelligent automation, real-time collaboration,
-            and deep code understanding into one unified developer platform.
+            WeKraft combines intelligent PM, real-time collaboration,
+            and deep Analysis into one unified developer platform.
           </motion.p>
         </div>
 
@@ -326,7 +326,41 @@ const Section1 = () => {
                 craft faster
               </p>
             </div>
-            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-1/2 opacity-80">
+            {/* <div>
+              {[
+                { top: "40%", left: "42%", name: "Rox", color: "#6366f1", delay: 0.4, img: "https://i.pravatar.cc/40?img=11" },
+                { top: "42%", left: "72%", name: "Sarah", color: "#3b82f6", delay: 0.6, img: "https://i.pravatar.cc/40?img=47" },
+                { top: "38%", left: "18%", name: "Aryan", color: "#10b981", delay: 0.8, img: "https://i.pravatar.cc/40?img=12" },
+                { top: "50%", left: "8%", name: "Mia", color: "#f59e0b", delay: 1.0, img: "https://i.pravatar.cc/40?img=45" },
+              ].map((dev, i) => (
+                <motion.div
+                  key={dev.name}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: dev.delay, type: "spring", stiffness: 200, damping: 15 }}
+                  className="absolute z-20 flex flex-col items-center gap-1 pointer-events-none"
+                  style={{ top: dev.top, left: dev.left }}
+                >
+                  <div
+                    className="px-2 py-0.5 rounded-full text-[9px] font-bold text-white whitespace-nowrap mb-0.5"
+                    style={{ backgroundColor: dev.color }}
+                  >
+                    {dev.name}
+                  </div>
+                  <div className="w-px h-3" style={{ background: `linear-gradient(to bottom, ${dev.color}, transparent)` }} />
+                  <motion.div
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+                    className="w-8 h-8 rounded-full border-1 overflow-hidden shadow-lg"
+                    style={{ borderColor: dev.color, boxShadow: `0 0 12px ${dev.color}66` }}
+                  >
+                    <img src={dev.img} alt={dev.name} className="w-full h-full object-cover" />
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div> */}
+            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-[45%] scale-105 opacity-80">
               <Globe />
             </div>
           </motion.div>

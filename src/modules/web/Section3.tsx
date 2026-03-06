@@ -3,6 +3,7 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -54,28 +55,28 @@ const ShipIcon = () => (
 
 const features = [
   {
-    num: "1",
+    num: "01",
     icon: <AgentIcon />,
-    title: "Autonomous Agent Workflows",
-    desc: "WeKraft agents plan sprints, assign tasks, and detect blockers — all without manual intervention.",
+    title: "Find your team. Avoid zombie projects.",
+    desc: "Match with developers who share your skills and intentions. No more abandoned repos, no more dead-weight collaborators — only teams that actually ship.",
   },
   {
-    num: "2",
-    icon: <TrackIcon />,
-    title: "Deadline Intelligence",
-    desc: "AI monitors every task in real-time and nudges the right person before a deadline is ever missed.",
-  },
-  {
-    num: "3",
+    num: "02",
     icon: <ColabIcon />,
     title: "Real-time Collaboration",
-    desc: "Your entire team — code reviews, PRs, comments, and deployments — synced on one living canvas.",
+    desc: "Code reviews, PRs, comments, deployments — all synced live. Your team moves as one, whether they're in the same room or different continents.",
   },
   {
-    num: "4",
+    num: "03",
+    icon: <TrackIcon />,
+    title: "Deadline Intelligence",
+    desc: "AI watches every task, every assignee, every dependency. It nudges the right person before a deadline slips — not after.",
+  },
+  {
+    num: "04",
     icon: <ShipIcon />,
     title: "Ship Without Friction",
-    desc: "From first commit to production deploy, WeKraft removes every bottleneck that slows teams down.",
+    desc: "From first commit to production deploy, WeKraft removes every bottleneck. Less overhead. More shipping.",
   },
 ];
 
@@ -90,13 +91,13 @@ const Section3 = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
-    <motion.section
+    <motion.div
       ref={containerRef}
       style={{ y: yShift, opacity }}
-      className="relative w-full bg-white z-20 py-24 md:py-32 px-6 md:px-12 lg:px-20 rounded-t-[3rem] shadow-[0_-40px_80px_rgba(0,0,0,0.12)]"
+      className="relative w-full bg-[#FAFAF9] z-20 py-24 md:py-32 px-6 md:px-12 lg:px-20 rounded-t-[3rem] shadow-[0_-40px_80px_rgba(0,0,0,0.12)]"
     >
       {/* Subtle dot grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[size:28px_28px] opacity-60 rounded-t-[3rem]" />
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-[size:28px_28px] opacity-60 rounded-t-[3rem] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
@@ -127,8 +128,8 @@ const Section3 = () => {
               transition={{ ...fadeUp.transition, delay: 0.2 }}
               className="text-[15px] text-neutral-500 leading-relaxed mb-10 max-w-sm"
             >
-              From autonomous agents to real-time collaboration — WeKraft
-              handles the overhead so your team can focus on what matters: building.
+              From finding your tribe to shipping in production — WeKraft
+              handles the overhead so your team focuses on what matters: building.
             </motion.p>
 
             <motion.div
@@ -154,18 +155,31 @@ const Section3 = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-                className="group bg-white p-8 flex flex-col gap-6 hover:bg-neutral-50 transition-colors duration-300"
+                className="group relative bg-white p-8 flex flex-col gap-6 overflow-hidden"
               >
+                {/* DottedGlow per card */}
+                <DottedGlowBackground
+                  className="absolute inset-0 pointer-events-none"
+                  opacity={0.55}
+                  gap={14}
+                  radius={1.4}
+                  color="rgba(59,130,246,0.25)"
+                  glowColor="rgba(59,130,246,0.9)"
+                  backgroundOpacity={0}
+                  speedMin={0.3}
+                  speedMax={1.2}
+                />
+
                 {/* Illustrated icon */}
                 <motion.div
                   whileHover={{ y: -4, rotate: 2 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="w-18 h-18"
+                  className="relative z-10 w-18 h-18"
                 >
                   {f.icon}
                 </motion.div>
 
-                <div>
+                <div className="relative z-10">
                   <div className="text-[11px] text-neutral-400 font-mono mb-2 tracking-widest">{f.num}</div>
                   <h3 className="text-[18px] font-semibold text-neutral-900 leading-snug mb-3 tracking-tight">
                     {f.title}
@@ -176,7 +190,7 @@ const Section3 = () => {
                 </div>
 
                 {/* Subtle hover arrow */}
-                <div className="mt-auto flex items-center gap-1.5 text-[13px] font-medium text-neutral-300 group-hover:text-blue-500 transition-colors duration-300">
+                <div className="relative z-10 mt-auto flex items-center gap-1.5 text-[13px] font-medium text-neutral-300 group-hover:text-blue-500 transition-colors duration-300">
                   <span>Learn more</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-300" />
                 </div>
@@ -186,7 +200,7 @@ const Section3 = () => {
 
         </div>
       </div>
-    </motion.section>
+    </motion.div>
   );
 };
 

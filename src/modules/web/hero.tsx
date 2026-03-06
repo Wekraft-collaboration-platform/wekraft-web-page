@@ -178,7 +178,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="mt-18 w-full max-w-[84%] mx-auto" style={{ perspective: "1200px" }}>
+        <div className="mt-18 w-full max-w-[85%] mx-auto" style={{ perspective: "1200px" }}>
           <motion.div
             style={{ rotateX, scale, y, opacity: rawOpacity }}
             className="relative will-change-transform"
