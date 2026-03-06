@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -79,8 +79,23 @@ const FloatingCursor = ({
 };
 
 const Hero = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const rawRotateX = useTransform(scrollYProgress, [0, 0.25], [14, 0]);
+  const rawScale = useTransform(scrollYProgress, [0, 0.25], [0.88, 1]);
+  const rawY = useTransform(scrollYProgress, [0, 0.25], [40, 0]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.08, 0.3], [0, 1, 1]);
+
+  const rotateX = useSpring(rawRotateX, { stiffness: 80, damping: 20 });
+  const scale = useSpring(rawScale, { stiffness: 80, damping: 20 });
+  const y = useSpring(rawY, { stiffness: 80, damping: 20 });
+
   return (
-    <div className="min-h-screen max-h-[198vh] w-full  bg-black relative overflow-hidden">
+    <div ref={containerRef} className="min-h-screen max-h-[200vh] w-full  bg-black relative overflow-hidden">
       <div className="">
         <Spotlight
           className="-top-40 left-0 md:-top-20 md:left-60"
@@ -104,13 +119,13 @@ const Hero = () => {
           <span className="text-gray-200">Better way to collaborate</span>
         </AnimatedShinyText>
 
-        <div className="flex flex-col gap-2 items-center justify-center font-pop relative">
-          <h1 className="text-8xl leading-[1.20] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
+        <div className="flex flex-col gap-2 items-center justify-center font-pop  relative">
+          <h1 className="text-8xl leading-[1.40] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
             Build <span className="">Together</span>
           </h1>
           <div className="flex items-center gap-4 -mt-4">
             <h1 className="text-8xl leading-[1.15] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
-              Ship Faster
+              Craft <span className="">Faster</span>
             </h1>
             <div className="self-center -mb-4 w-12 h-12 flex items-center justify-center rounded-lg bg-linear-to-br from-blue-300 to-blue-700">
               <LucideTrendingUp className="w-10 h-10 text-white" />
@@ -140,8 +155,8 @@ const Hero = () => {
           <div className="absolute inset-x-60 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px w-1/4" />
 
           <p className="text-gray-400 text-[20px] mt-5 font-sans tracking-tight text-pretty text-center">
-            Autonomous agents that plan, manage, and track your project. Match
-            talent, Collaborate seamlessly, and execute workflows autonomously.
+            Autonomous agents that plan, manage, and track your project.
+            Match talent, collaborate seamlessly, and never let deadline slip.
             Build together — frictionless.
           </p>
 
@@ -157,21 +172,32 @@ const Hero = () => {
                 Join Waitlist <MousePointerBan className="w-4 h-4" />
               </Button>
             </div>
-            <p className="text-gray-400 text-sm mt-5 font-sans tracking-tight text-pretty text-center">
+            <p className="text-gray-400 text-sm mt-2 font-sans tracking-tight text-pretty text-center">
               Join the waitlist to get early access to WeKraft. <LaptopMinimalCheck className="w-4 h-4 inline" />
             </p>
           </div>
         </div>
 
-        <div className="mt-20 w-full max-w-[84%] mx-auto">
-          <div className="relative">
-            <HeroVideoDialog
-              videoSrc="https://www.youtube.com/embed/VIDEO_ID"
-              thumbnailSrc="/hero-img-1.png"
-              thumbnailAlt="Video thumbnail"
-            />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-black via-black/60 to-transparent" />
-          </div>
+        <div className="mt-18 w-full max-w-[84%] mx-auto" style={{ perspective: "1200px" }}>
+          <motion.div
+            style={{ rotateX, scale, y, opacity: rawOpacity }}
+            className="relative will-change-transform"
+          >
+            {/* Top edge glow */}
+            <div className="absolute -inset-x-4 -top-4 h-8 bg-blue-500/25 blur-2xl rounded-full pointer-events-none" />
+            {/* Border frame */}
+            <div className="rounded-xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.08)]">
+              <Image
+                src="/hero-img-1.png"
+                alt="Hero Image"
+                className="w-full h-auto block"
+                width="1920"
+                height="1080"
+                priority
+              />
+            </div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-80 bg-linear-to-t from-black via-black/50 to-transparent" />
+          </motion.div>
         </div>
       </main>
     </div>
