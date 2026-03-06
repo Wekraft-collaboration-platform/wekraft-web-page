@@ -62,8 +62,8 @@ const Section1 = () => {
             transition={{ ...fadeUp.transition, delay: 0.2 }}
             className="text-lg text-neutral-500 leading-relaxed max-w-xl"
           >
-            WeKraft combines intelligent automation, real-time collaboration,
-            and deep code understanding into one unified developer platform.
+            WeKraft combines intelligent PM, real-time collaboration,
+            and deep Analysis into one unified developer platform.
           </motion.p>
         </div>
 
@@ -326,8 +326,54 @@ const Section1 = () => {
                 craft faster
               </p>
             </div>
-            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-1/2 opacity-80">
+
+            <div className="absolute inset-0 w-full h-full flex items-end justify-center top-[45%] scale-105 opacity-80">
+
               <Globe />
+              {[
+                { top: "0%", left: "15%", tag: "Rox", img: "https://i.pravatar.cc/100?img=11", delay: 0 },
+                { top: "10%", right: "20%", tag: "Bhanu", img: "https://i.pravatar.cc/100?img=12", delay: 2.5 },
+                { top: "-5%", left: "28%", tag: "Ritesh", img: "https://i.pravatar.cc/100?img=13", delay: 5 },
+                { top: "5%", right: "32%", tag: "Mia", img: "https://i.pravatar.cc/100?img=14", delay: 7.5 },
+              ].map((avatar, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute z-20 flex flex-col items-center pointer-events-none"
+                  style={{ top: avatar.top, left: avatar.left, right: avatar.right }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: [0, 1, 1, 0],
+                    y: [10, 0, 0, -10],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: avatar.delay,
+                  }}
+                >
+                  <div className="relative group flex flex-col items-center">
+                    <div className="w-9 h-9 rounded-full border border-white/20 bg-black/60 p-0.5 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.15)] overflow-hidden z-10">
+                      <img src={avatar.img} alt={avatar.tag} className="w-full h-full rounded-full object-cover opacity-90" />
+                    </div>
+                    <div className="absolute -bottom-6 px-2 py-0.5 bg-black/80 border border-white/10 rounded-md text-[9px] font-medium text-white/90 backdrop-blur-md whitespace-nowrap tracking-wide z-20">
+                      {avatar.tag}
+                    </div>
+                  </div>
+                  {/* Line connecting to globe */}
+                  <motion.div
+                    className="w-px bg-gradient-to-b from-white/40 to-transparent mt-8"
+                    initial={{ height: 0 }}
+                    animate={{ height: ["0px", "50px", "50px", "0px"] }}
+                    transition={{
+                      duration: 10,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: avatar.delay,
+                    }}
+                  />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 

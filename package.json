@@ -18,6 +18,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "cobe": "^0.6.5",
+    "convex": "^1.32.0",
     "date-fns": "^4.1.0",
     "dotted-map": "^3.1.0",
     "embla-carousel-react": "^8.6.0",

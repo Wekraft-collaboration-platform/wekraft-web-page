@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -79,102 +79,125 @@ const FloatingCursor = ({
 };
 
 const Hero = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const rawRotateX = useTransform(scrollYProgress, [0, 0.25], [14, 0]);
+  const rawScale = useTransform(scrollYProgress, [0, 0.25], [0.88, 1]);
+  const rawY = useTransform(scrollYProgress, [0, 0.25], [40, 0]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.08, 0.3], [0, 1, 1]);
+
+  const rotateX = useSpring(rawRotateX, { stiffness: 80, damping: 20 });
+  const scale = useSpring(rawScale, { stiffness: 80, damping: 20 });
+  const y = useSpring(rawY, { stiffness: 80, damping: 20 });
+
   return (
-    <div className="min-h-screen w-full bg-black relative overflow-hidden">
-      <div className="absolute inset-0">
+    <div ref={containerRef} className="min-h-screen max-h-[200vh] w-full  bg-black relative overflow-hidden">
+      <div className="">
         <Spotlight
           className="-top-40 left-0 md:-top-20 md:left-60"
           fill="#C1C1C1"
         />
-        <Image
-          src="/night-bg.png"
-          alt="background"
-          fill
-          className="object-cover opacity-70"
-          priority
-        />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
       </div>
+      <Image
+        src="/night-bg.png"
+        alt="background"
+        className="size-full block  opacity-70 "
+        width="3276"
+        height="4095"
+        priority
+      />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
 
-      <main className="relative z-10 flex flex-col items-center justify-center px-4 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16">
-        <AnimatedShinyText className="inline-flex items-center justify-center px-3 sm:px-4 py-1 border border-gray-400/30 rounded-full cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-5 sm:mb-8">
-          <span className="text-sm sm:text-base">✨</span>
-          <Separator orientation="vertical" className="mx-1.5 sm:mx-2 bg-gray-600" />
-          <span className="text-gray-200 text-xs sm:text-sm">Better way to collaborate</span>
+      <main className="absolute inset-0 flex flex-col items-center justify-center pt-44">
+        <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-20">
+          <span>✨</span>
+          <Separator orientation="vertical" className="mx-2 bg-gray-600" />
+          <span className="text-gray-200">Better way to collaborate</span>
         </AnimatedShinyText>
 
-        <div className="flex flex-col gap-1 sm:gap-2 items-center justify-center font-pop relative">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.20] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold text-center">
+        <div className="flex flex-col gap-2 items-center justify-center font-pop  relative">
+          <h1 className="text-8xl leading-[1.40] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
             Build <span className="">Together</span>
           </h1>
-          <div className="flex items-center gap-2 sm:gap-4 md:-mt-4">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.15] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold">
-              Ship Faster
+          <div className="flex items-center gap-4 -mt-4">
+            <h1 className="text-8xl leading-[1.15] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
+              Craft <span className="">Faster</span>
             </h1>
-            <div className="self-center -mb-2 sm:-mb-4 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg bg-linear-to-br from-blue-300 to-blue-700 shrink-0">
-              <LucideTrendingUp className="w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
+            <div className="self-center -mb-4 w-12 h-12 flex items-center justify-center rounded-lg bg-linear-to-br from-blue-300 to-blue-700">
+              <LucideTrendingUp className="w-10 h-10 text-white" />
             </div>
           </div>
 
-          <div className="hidden md:block">
-            <FloatingCursor
-              name="Ritesh"
-              color="#3b82f6"
-              initialX="-10%"
-              initialY="50%"
-              isLeft={true}
-            />
-          </div>
-          <div className="hidden md:block">
-            <FloatingCursor
-              name="Rox"
-              color="#6366f1"
-              initialX="104%"
-              initialY="30%"
-            />
-          </div>
+          <FloatingCursor
+            name="Ritesh"
+            color="#3b82f6"
+            initialX="-10%"
+            initialY="50%"
+            isLeft={true}
+          />
+          <FloatingCursor
+            name="Rox"
+            color="#6366f1"
+            initialX="104%"
+            initialY="30%"
+          />
         </div>
 
-        <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl mx-auto relative mt-5 sm:mt-6 px-2 sm:px-4">
+        <div className="w-220  mx-auto relative mt-5">
           {/* Gradients */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-[2px] w-3/4 blur-sm" />
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px w-3/4" />
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bg-linear-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px w-1/4" />
+          <div className="absolute inset-x-20 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-[2px] w-3/4 blur-sm" />
+          <div className="absolute inset-x-20 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px w-3/4" />
+          <div className="absolute inset-x-60 top-0 bg-linear-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
+          <div className="absolute inset-x-60 top-0 bg-linear-to-r from-transparent via-blue-500 to-transparent h-px w-1/4" />
 
-          <p className="text-gray-400 text-sm sm:text-base md:text-[20px] mt-5 font-sans tracking-tight text-pretty text-center leading-relaxed">
-            Autonomous agents that plan, manage, and track your project. Match
-            talent, Collaborate seamlessly, and execute workflows autonomously.
+          <p className="text-gray-400 text-[20px] mt-5 font-sans tracking-tight text-pretty text-center">
+            Autonomous agents that plan, manage, and track your project.
+            Match talent, collaborate seamlessly, and never let deadline slip.
             Build together — frictionless.
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-4 mt-8 sm:mt-14 w-full">
+          <div className="flex flex-col items-center justify-center gap-4 mt-14">
             {/* WAITING LIST & EARLY ACCESS */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full justify-center">
+            <div className="flex items-center gap-4">
               <Input
                 type="email"
                 placeholder="Enter your email..."
-                className="w-full sm:w-96 h-10 sm:h-10 bg-neutral-300"
+                className="w-96 h-9 bg-neutral-300"
               />
-              <Button className="w-full sm:w-auto h-10! cursor-pointer bg-blue-800 hover:bg-blue-900 border border-white/30 text-sm sm:text-base">
-                Join Waitlist <MousePointerBan className="w-4 h-4 ml-2" />
+              <Button className="h-10! cursor-pointer bg-blue-800 hover:bg-blue-900 border border-white/30">
+                Join Waitlist <MousePointerBan className="w-4 h-4" />
               </Button>
             </div>
-            <p className="text-gray-400 text-xs sm:text-sm mt-2 sm:mt-5 font-sans tracking-tight text-pretty text-center px-4">
-              Join the waitlist to get early access to WeKraft. <LaptopMinimalCheck className="w-3 h-3 sm:w-4 sm:h-4 inline ml-1" />
+            <p className="text-gray-400 text-sm mt-2 font-sans tracking-tight text-pretty text-center">
+              Join the waitlist to get early access to WeKraft. <LaptopMinimalCheck className="w-4 h-4 inline" />
             </p>
           </div>
         </div>
 
-        <div className="mt-10 sm:mt-14 md:mt-20 w-full max-w-[95%] sm:max-w-[85%] md:max-w-[84%] mx-auto">
-          <div className="relative">
-            <HeroVideoDialog
-              videoSrc="https://www.youtube.com/embed/VIDEO_ID"
-              thumbnailSrc="/hero-img-1.png"
-              thumbnailAlt="Video thumbnail"
-            />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 sm:h-32 md:h-40 bg-linear-to-t from-black via-black/60 to-transparent" />
-          </div>
+        <div className="mt-18 w-full max-w-[85%] mx-auto" style={{ perspective: "1200px" }}>
+          <motion.div
+            style={{ rotateX, scale, y, opacity: rawOpacity }}
+            className="relative will-change-transform"
+          >
+            {/* Top edge glow */}
+            <div className="absolute -inset-x-4 -top-4 h-8 bg-blue-500/25 blur-2xl rounded-full pointer-events-none" />
+            {/* Border frame */}
+            <div className="rounded-xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.08)]">
+              <Image
+                src="/hero-img-1.png"
+                alt="Hero Image"
+                className="w-full h-auto block"
+                width="1920"
+                height="1080"
+                priority
+              />
+            </div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-80 bg-linear-to-t from-black via-black/50 to-transparent" />
+          </motion.div>
         </div>
       </main>
     </div>
