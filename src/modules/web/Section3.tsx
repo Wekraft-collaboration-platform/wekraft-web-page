@@ -117,10 +117,10 @@ const Section3 = () => {
               transition={{ ...fadeUp.transition, delay: 0.1 }}
               className="text-[2.4rem] md:text-[3rem] font-semibold tracking-[-0.03em] text-neutral-900 leading-[1.1] mb-6"
             >
-              Built for teams
+              Collaborating & Managing
               <br />
-              who ship{" "}
-              <span className="text-blue-500">fast.</span>
+              was never this
+              <span className="text-blue-500"> easy.</span>
             </motion.h2>
 
             <motion.p

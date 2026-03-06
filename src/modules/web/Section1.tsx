@@ -331,10 +331,10 @@ const Section1 = () => {
 
               <Globe />
               {[
-                { top: "0%", left: "15%", tag: "Tokyo", img: "https://i.pravatar.cc/100?img=11", delay: 0 },
-                { top: "10%", right: "20%", tag: "New York", img: "https://i.pravatar.cc/100?img=12", delay: 2.5 },
-                { top: "-5%", left: "28%", tag: "London", img: "https://i.pravatar.cc/100?img=13", delay: 5 },
-                { top: "5%", right: "32%", tag: "Sydney", img: "https://i.pravatar.cc/100?img=14", delay: 7.5 },
+                { top: "0%", left: "15%", tag: "Rox", img: "https://i.pravatar.cc/100?img=11", delay: 0 },
+                { top: "10%", right: "20%", tag: "Bhanu", img: "https://i.pravatar.cc/100?img=12", delay: 2.5 },
+                { top: "-5%", left: "28%", tag: "Ritesh", img: "https://i.pravatar.cc/100?img=13", delay: 5 },
+                { top: "5%", right: "32%", tag: "Mia", img: "https://i.pravatar.cc/100?img=14", delay: 7.5 },
               ].map((avatar, i) => (
                 <motion.div
                   key={i}
@@ -353,7 +353,7 @@ const Section1 = () => {
                   }}
                 >
                   <div className="relative group flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-full border border-white/20 bg-black/60 p-0.5 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.15)] overflow-hidden z-10">
+                    <div className="w-9 h-9 rounded-full border border-white/20 bg-black/60 p-0.5 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.15)] overflow-hidden z-10">
                       <img src={avatar.img} alt={avatar.tag} className="w-full h-full rounded-full object-cover opacity-90" />
                     </div>
                     <div className="absolute -bottom-6 px-2 py-0.5 bg-black/80 border border-white/10 rounded-md text-[9px] font-medium text-white/90 backdrop-blur-md whitespace-nowrap tracking-wide z-20">

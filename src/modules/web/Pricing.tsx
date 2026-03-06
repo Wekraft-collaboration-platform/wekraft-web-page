@@ -49,34 +49,34 @@ interface FeatureRow {
 const plans: Plan[] = [
   {
     key: "hobby",
-    name: "Hobby",
+    name: "Free",
     price: { monthly: 0, annual: 0 },
-    description: "For solo devs and teams just exploring Wekraft's power.",
-    cta: "Start for free",
-    ctaHref: "/auth",
+    description: "Get started, explore WeKraft, and build with a small team — completely free.",
+    cta: "Join Waitlist",
+    ctaHref: "/web/reach-us",
     highlighted: false,
     icon: <GitBranch className="h-5 w-5" />,
   },
   {
     key: "team",
-    name: "Team",
+    name: "Pro",
     badge: "Most popular",
-    price: { monthly: 18, annual: 18 },
+    price: { monthly: null, annual: null },
     description:
-      "For serious teams that want to ship faster and collaborate smarter.",
-    cta: "Start free trial",
-    ctaHref: "/auth",
+      "For serious builders who want AI-powered project management, reviews, and team analytics.",
+    cta: "Join Waitlist",
+    ctaHref: "/web/reach-us",
     highlighted: true,
     icon: <Users2 className="h-5 w-5" />,
   },
   {
     key: "studio",
     name: "Studio",
-    price: { monthly: 40, annual: 40 },
+    price: { monthly: null, annual: null },
     description:
-      "For scaling product studios that need advanced control and flexible pricing.",
+      "For larger teams and product studios that need advanced control, analytics, and dedicated support.",
     cta: "Talk to us",
-    ctaHref: "mailto:contact@wekraft.com",
+    ctaHref: "/web/reach-us",
     highlighted: false,
     icon: <Shield className="h-5 w-5" />,
   },
@@ -88,131 +88,73 @@ const featureCategories: {
   rows: FeatureRow[];
 }[] = [
   {
-    title: "Collaboration",
+    title: "Projects & Teams",
     icon: <Users className="h-4 w-4" />,
     rows: [
-      {
-        label: "Team members",
-        hobby: "Up to 3",
-        team: "Up to 15",
-        studio: "Unlimited",
-      },
-      {
-        label: "Repositories",
-        hobby: "5",
-        team: "Unlimited",
-        studio: "Unlimited",
-      },
+      { label: "Project creation", hobby: "2", team: "5", studio: "Unlimited" },
+      { label: "Project joining", hobby: "2", team: "5", studio: "Unlimited" },
       { label: "Skill-based matching", hobby: true, team: true, studio: true },
-      {
-        label: "Pair programming sessions",
-        hobby: false,
-        team: true,
-        studio: true,
-      },
-      {
-        label: "Cross-team access controls",
-        hobby: false,
-        team: false,
-        studio: true,
-      },
+      { label: "Community access", hobby: true, team: true, studio: true },
+      { label: "User stats & profile", hobby: true, team: true, studio: true },
+      { label: "Advanced team analytics", hobby: false, team: true, studio: true },
     ],
   },
   {
     title: "AI & Automation",
     icon: <BrainCircuit className="h-4 w-4" />,
     rows: [
-      {
-        label: "AI code suggestions",
-        hobby: "50/month",
-        team: "Unlimited",
-        studio: "Unlimited",
-      },
-      {
-        label: "Agentic code guardrails",
-        hobby: false,
-        team: true,
-        studio: true,
-      },
-      {
-        label: "Auto-assign reviewers",
-        hobby: false,
-        team: true,
-        studio: true,
-      },
-      {
-        label: "Issue detection agents",
-        hobby: false,
-        team: "5 agents",
-        studio: "Unlimited",
-      },
-      {
-        label: "Workflow orchestration",
-        hobby: false,
-        team: true,
-        studio: true,
-      },
-      { label: "Custom AI policies", hobby: false, team: false, studio: true },
+      { label: "AI code reviews", hobby: "Limited", team: "Higher limits", studio: "Unlimited" },
+      { label: "PM Agent", hobby: "Limited", team: true, studio: true },
+      { label: "Auto-assign issues", hobby: false, team: true, studio: true },
+      { label: "Issue resolution agent", hobby: false, team: true, studio: true },
     ],
   },
   {
-    title: "Insights & Analytics",
+    title: "Insights & Tracking",
     icon: <BarChart3 className="h-4 w-4" />,
     rows: [
-      { label: "Repo heatmap", hobby: false, team: true, studio: true },
+      { label: "Todo & task management", hobby: true, team: true, studio: true },
       { label: "Timeline tracker", hobby: false, team: true, studio: true },
-      {
-        label: "Team velocity reports",
-        hobby: false,
-        team: true,
-        studio: true,
-      },
-      { label: "Custom dashboards", hobby: false, team: false, studio: true },
-      { label: "Export & API access", hobby: false, team: false, studio: true },
+      { label: "Graphs & visualizations", hobby: false, team: true, studio: true },
+      { label: "Repo heatmap", hobby: false, team: true, studio: true },
+      { label: "Advanced dashboards", hobby: false, team: false, studio: true },
     ],
   },
   {
-    title: "Security & Support",
+    title: "Support",
     icon: <Lock className="h-4 w-4" />,
     rows: [
-      { label: "SSO / SAML", hobby: false, team: false, studio: true },
-      { label: "Audit logs", hobby: false, team: true, studio: true },
-      {
-        label: "Priority support",
-        hobby: false,
-        team: "Email",
-        studio: "Dedicated Slack",
-      },
-      { label: "SLA guarantee", hobby: false, team: false, studio: true },
+      { label: "Help & support", hobby: "Limited", team: "Priority email", studio: "Dedicated" },
       { label: "Onboarding session", hobby: false, team: false, studio: true },
+      { label: "SLA guarantee", hobby: false, team: false, studio: true },
     ],
   },
 ];
 
 const faqs = [
   {
-    q: "What's included in the Hobby plan?",
-    a: "The Hobby plan gives solo developers and small teams access to Wekraft's core collaboration features, basic skill matching, and 50 AI suggestions per month — completely free. No credit card required.",
+    q: "When will pricing be revealed?",
+    a: "We're in early launch mode and pricing hasn't been disclosed yet. Join the waitlist and you'll be the first to know — early users will get exclusive founding member rates.",
   },
   {
-    q: "Can I upgrade or downgrade at any time?",
-    a: "Absolutely. You can switch between plans any time from your settings. If you upgrade mid-cycle, you'll be charged a prorated amount. Downgrades take effect at the next billing period.",
+    q: "What's included in the Free tier?",
+    a: "The Free tier lets you create up to 2 projects, join up to 2 projects, access community features, limited AI reviews, and a limited PM agent experience — no credit card required.",
   },
   {
-    q: "What's the difference between Team and Studio?",
-    a: "Team is built for focused engineering teams (up to 15 members) shipping product fast with AI guardrails. Studio is for product studios and agencies needing custom AI policies, unlimited agents, SSO, dedicated Slack support, and SLA guarantees.",
+    q: "What does Pro add over Free?",
+    a: "Pro unlocks 5 project creations, 5 joinings, higher limits on AI reviews, the full PM Agent, advanced team analytics, and repo heatmaps — everything a serious team needs to ship.",
   },
   {
-    q: "Is the annual billing discount applied automatically?",
-    a: "We currently offer simple monthly billing to keep things flexible for your team. You can cancel or change your plan at any time.",
+    q: "What is Studio meant for?",
+    a: "Studio is designed for larger, more advanced teams that need dedicated support, deeper analytics, and custom arrangements. Reach out and we'll build the right plan together.",
   },
   {
-    q: "Do you offer discounts for open-source projects?",
-    a: "Yes! Verified open-source projects get Team plan features for free. Reach out to us at contact@wekraft.com with your GitHub repo link.",
+    q: "What features are coming to WeKraft?",
+    a: "We're building: Todo & task management, timeline tracker, graphs & visualizations, PM agent, issue resolution, AI reviews, repo heatmap, community, user stats, and more. It's just getting started.",
   },
   {
-    q: "How do Wekraft's AI agents work?",
-    a: "Wekraft's agents continuously analyze your codebase for anti-patterns, technical debt, and code smell. They surface actionable suggestions in your workflow — no extra setup, no separate tool.",
+    q: "How do I get early access?",
+    a: "Head to our Reach Us page and join the waitlist. Early members will get priority access, founding pricing, and a direct line to shape the product.",
   },
 ];
 
@@ -310,13 +252,13 @@ const Pricing = () => {
             transition={{ delay: 0.1 }}
             className="text-5xl md:text-6xl font-light tracking-tight text-white mb-6 leading-[1.1]"
           >
-            One platform.{" "}
+            Simple tiers.{" "}
             <span className="bg-linear-to-r from-blue-400 to-blue-600 bg-clip-text font-medium text-transparent">
-              Everything
+              Pricing
             </span>{" "}
-            your
+            revealed
             <br />
-            team needs to ship.
+            when we launch.
           </motion.h1>
 
           <motion.p
@@ -325,20 +267,20 @@ const Pricing = () => {
             transition={{ delay: 0.2 }}
             className="text-white/50 text-lg max-w-xl mx-auto mb-10"
           >
-            From solo explorers to scaling studios — Wekraft grows with your
-            team.
+            We&apos;re just getting started. Join the waitlist and be the first
+            to know — with founding member perks.
           </motion.p>
 
-          {/* Billing Cycle Info */}
+          {/* Launch badge */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-2 backdrop-blur-md"
+            className="inline-flex items-center gap-3 rounded-full border border-amber-500/20 bg-amber-500/8 px-6 py-2 backdrop-blur-md"
           >
-            <span className="text-sm text-white/70 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-blue-400" />
-              Billed Monthly
+            <span className="text-sm text-amber-300/80 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              Pricing will be disclosed at launch — early members get founding rates
             </span>
           </motion.div>
         </div>
@@ -398,23 +340,21 @@ const Pricing = () => {
                     <div className="text-5xl font-bold text-white">Free</div>
                   ) : plan.key === "studio" ? (
                     <div className="flex flex-col gap-1">
-                      <div className="text-4xl font-bold text-white">
-                        Custom
-                      </div>
+                      <div className="text-4xl font-bold text-white">Custom</div>
                       <p className="text-blue-400/80 text-xs font-semibold uppercase tracking-wider">
-                        Starts from $40/mo
+                        Talk to us
                       </p>
                     </div>
                   ) : (
-                    <div className="flex items-end gap-1">
-                      <span className="text-4xl font-bold text-white">$18</span>
-                      <span className="text-white/40 text-sm mb-1.5">
-                        /user/mo
-                      </span>
+                    <div className="flex flex-col gap-1">
+                      <div className="text-4xl font-bold text-white">TBA</div>
+                      <p className="text-blue-400/80 text-xs font-semibold uppercase tracking-wider">
+                        Pricing revealed at launch
+                      </p>
                     </div>
                   )}
-                  {plan.key !== "hobby" && (
-                    <p className="text-xs text-white/30 mt-1">Billed monthly</p>
+                  {plan.key === "hobby" && (
+                    <p className="text-xs text-white/30 mt-1">No credit card required</p>
                   )}
                 </div>
 
@@ -439,31 +379,31 @@ const Pricing = () => {
                 <ul className="flex flex-col gap-3">
                   {(plan.key === "hobby"
                     ? [
-                        "2 Projects",
-                        "Up to 4 team members/project",
-                        "20 Reviews/month",
-                        "Community Features",
-                        "5 Team joining requests/month",
-                        "Basic Help support",
+                        "2 project creations",
+                        "2 project joinings",
+                        "Limited AI reviews",
+                        "Limited PM Agent",
+                        "Community access",
+                        "Basic help support",
                       ]
                     : plan.key === "team"
                       ? [
-                          "10 Projects",
-                          "Up to 10 team members/project",
-                          "100 Reviews/month",
-                          "Auto-assign Issues",
-                          "Repo heatmap & Intelligence",
-                          "Voice PM",
-                          "Unlimited Team joining requests",
-                          "Dedicated Help support",
+                          "5 project creations",
+                          "5 project joinings",
+                          "Higher limits on AI reviews",
+                          "Full PM Agent",
+                          "Advanced team analytics",
+                          "Repo heatmaps",
+                          "Timeline tracker",
+                          "Priority support",
                         ]
                       : [
-                          "Everything in Team",
-                          "Unlimited members & agents",
-                          "Custom AI policies",
-                          "Advanced audit logs",
-                          "Custom dashboards & API",
-                          "Dedicated Slack support",
+                          "Everything in Pro",
+                          "Unlimited projects & teams",
+                          "Custom arrangements",
+                          "Dedicated onboarding",
+                          "SLA guarantee",
+                          "Dedicated support channel",
                         ]
                   ).map((f) => (
                     <li
