@@ -45,8 +45,10 @@ const Navbar = () => {
       >
         <div className="flex items-center gap-2">
           <Image src="/logo.svg" alt="Logo" width={32} height={32} />
-          {(!scrolled || !isMenuOpen) && (
-            <span className="font-semibold font-pop text-white hidden sm:block">WeKraft</span>
+          {!scrolled && (
+            <span className="font-semibold font-pop text-white  text-lg sm:text-xl">
+              WeKraft
+            </span>
           )}
         </div>
 
