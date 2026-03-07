@@ -9,11 +9,15 @@ import {
   Lightbulb,
   Send,
   ArrowRight,
+  LucidePhoneIncoming,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { toast } from "sonner";
 
 const reasons = [
   { id: "connect", label: "Connect", icon: MessageSquare },
@@ -24,20 +28,59 @@ const reasons = [
 
 const ReachUs = () => {
   const [selected, setSelected] = useState("connect");
+  const [formData, setFormData] = useState({
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [sending, setSending] = useState(false);
+  const saveQuery = useMutation(api.query.saveQuery);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const { email, subject, message } = formData;
+
+    if (!email || !subject || !message) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
     setSending(true);
-    setTimeout(() => {
+    const toastId = toast.loading("Sending message...");
+
+    try {
+      await saveQuery({
+        type: selected,
+        email,
+        subject,
+        message,
+      });
+
+      // Fire and forget
+      fetch("/api/reach-us", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, type: selected, subject, message }),
+      }).catch((err) => console.error("[reach-us] fetch failed:", err));
+
+      toast.success("Message sent! We'll get back to you soon.", { id: toastId });
+      setFormData({ email: "", subject: "", message: "" });
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong. Please try again.", { id: toastId });
+    } finally {
       setSending(false);
-    }, 2000);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   return (
     <div className="min-h-screen w-full bg-black pt-40 pb-32 px-6">
-      {/* subtle top glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[500px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(59,130,246,0.08),transparent)]" />
+
 
       <div className="relative z-10 max-w-xl mx-auto">
         {/* header */}
@@ -47,13 +90,13 @@ const ReachUs = () => {
           transition={{ duration: 0.5 }}
           className="mb-14"
         >
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/30 mb-4">
-            Reach us
+          <p className="text-sm  text-white mb-4 px-4 py-1.5 border border-white/30 rounded-full w-fit">
+            Reach us <LucidePhoneIncoming className="w-4 h-4 inline -mt-1" />
           </p>
-          <h1 className="text-3xl font-semibold text-white tracking-tight leading-snug mb-3">
+          <h1 className="text-4xl font-semibold text-white tracking-tight leading-snug mb-3">
             Get in touch
           </h1>
-          <p className="text-sm text-white/40 leading-relaxed max-w-sm">
+          <p className="text-sm text-neutral-300 leading-relaxed max-w-sm">
             Have a question, found a bug, or want to collaborate? Drop us a
             message and we&apos;ll get back within 24 hours.
           </p>
@@ -68,8 +111,8 @@ const ReachUs = () => {
           className="space-y-8"
         >
           {/* reason chips */}
-          <div className="space-y-2.5">
-            <label className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/25">
+          <div className="flex flex-col gap-2">
+            <label className="text-base font-medium text-white">
               Reason
             </label>
             <div className="flex flex-wrap gap-2">
@@ -84,7 +127,7 @@ const ReachUs = () => {
                     className={cn(
                       "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all duration-200",
                       active
-                        ? "bg-white/10 border-white/15 text-white"
+                        ? "bg-blue-300/10 border-blue-500/30 text-white"
                         : "bg-transparent border-white/5 text-white/30 hover:text-white/50 hover:border-white/10"
                     )}
                   >
@@ -97,56 +140,65 @@ const ReachUs = () => {
           </div>
 
           {/* email */}
-          <div className="space-y-2.5">
-            <label className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/25">
+          <div className="flex flex-col gap-2">
+            <label className="text-base font-medium  text-white">
               Email
             </label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/20" />
               <Input
+                id="email"
                 required
                 type="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="you@company.com"
-                className="pl-10 h-11 bg-white/[0.03] border-white/5 rounded-lg text-sm text-white placeholder:text-white/15 focus:border-white/15 focus:ring-0"
+                className="pl-10 h-11 bg-white/5 border-white/10 rounded-lg text-sm text-white placeholder:text-white/15 focus:border-white/15 focus:ring-0"
               />
             </div>
           </div>
 
           {/* subject */}
-          <div className="space-y-2.5">
-            <label className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/25">
+          <div className="flex flex-col gap-2">
+            <label className="text-base font-medium  text-white">
               Subject
             </label>
             <Input
+              id="subject"
               required
               type="text"
+              value={formData.subject}
+              onChange={handleChange}
               placeholder="Brief summary"
-              className="h-11 bg-white/[0.03] border-white/5 rounded-lg text-sm text-white placeholder:text-white/15 focus:border-white/15 focus:ring-0"
+              className="h-11 bg-white/5 border-white/10 rounded-lg text-sm text-white placeholder:text-white/15 focus:border-white/15 focus:ring-0"
             />
           </div>
 
           {/* message */}
-          <div className="space-y-2.5">
-            <label className="text-[11px] font-medium uppercase tracking-[0.15em] text-white/25">
+          <div className="flex flex-col gap-2">
+            <label className="text-base font-medium  text-white">
               Message
             </label>
             <Textarea
+              id="message"
               required
+              value={formData.message}
+              onChange={handleChange}
               placeholder="Describe what's on your mind..."
-              className="min-h-[140px] bg-white/[0.03] border-white/5 rounded-lg text-sm text-white placeholder:text-white/15 focus:border-white/15 focus:ring-0 resize-none"
+              className="min-h-[140px] bg-white/5 border-white/10 rounded-lg text-sm text-white placeholder:text-white/15 focus:border-white/15 focus:ring-0 resize-none"
             />
           </div>
 
           {/* submit */}
           <div className="flex items-center justify-between pt-2">
-            <span className="flex items-center gap-1.5 text-[11px] text-white/20">
+            <span className="flex items-center gap-1.5 text-base text-white/20">
               <span className="w-1 h-1 rounded-full bg-green-500/80" />
-              Typically replies in &lt; 24h
+              Typically replies within &lt; 12-24 hours
             </span>
             <Button
               type="submit"
               disabled={sending}
-              className="h-10 px-5 bg-white text-black hover:bg-white/90 rounded-lg text-xs font-semibold transition-all duration-200 disabled:opacity-50"
+              className="h-8 px-4 bg-white text-black hover:bg-white/90 rounded-lg text-xs font-semibold transition-all duration-200 disabled:opacity-50"
             >
               {sending ? (
                 <motion.div

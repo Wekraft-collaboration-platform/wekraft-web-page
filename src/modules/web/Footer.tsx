@@ -91,8 +91,9 @@ const Footer = () => {
           className="text-5xl  font-semibold text-white leading-tight tracking-tight mb-12"
         >
           The Future of Web <br />
+          Crafted {" "}
           <span className="bg-linear-to-r from-blue-400 to-blue-800 bg-clip-text text-transparent">
-            Crafted Together.
+            Together.
           </span>
         </motion.h2>
 

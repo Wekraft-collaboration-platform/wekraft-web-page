@@ -214,7 +214,7 @@ const Hero = () => {
               <Input
                 type="email"
                 placeholder="Enter your email..."
-                className="w-full md:w-96 h-8 md:h-9 bg-neutral-300"
+                className="w-full md:w-96 h-8 md:h-9 bg-neutral-300 border-2 border-white/30"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && !loading && handleJoinWaitlist()}
@@ -225,7 +225,7 @@ const Hero = () => {
                 disabled={loading}
                 className=" h-9 md:h-10! cursor-pointer text-xs md:text-sm bg-blue-800 hover:bg-blue-900 border border-white/30 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {loading ? "Joining..." : "Join Waitlist"} <MousePointerBan className="w-4 h-4" />
+                Join Waitlist <MousePointerBan className="w-4 h-4" />
               </Button>
             </div>
             <p className="text-gray-400 text-sm mt-2 font-sans tracking-tight text-pretty text-center">
@@ -244,7 +244,7 @@ const Hero = () => {
             {/* Border frame */}
             <div className="rounded-xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.08)]">
               <Image
-                src="/hero-img-1.png"
+                src="/hero-img.png"
                 alt="Hero Image"
                 className="w-full h-auto block"
                 width="1920"
@@ -263,7 +263,7 @@ const Hero = () => {
             <div className="absolute -inset-x-4 -top-4 h-8 bg-blue-500/25 blur-2xl rounded-full pointer-events-none" />
             <div className="rounded-xl overflow-hidden border border-white/10">
               <Image
-                src="/hero-img-1.png"
+                src="/hero-img.png"
                 alt="Hero Image"
                 className="w-full h-auto block"
                 width={1920}

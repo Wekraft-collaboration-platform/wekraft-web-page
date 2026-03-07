@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     "startup tools",
     "SaaS collaboration",
     "real-time project tracking",
-    "founding members",
+    "Agents",
   ],
   authors: [{ name: "WeKraft", url: "https://wekraft.xyz" }],
   creator: "WeKraft",
@@ -85,7 +85,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="theme-color" content="#09090b" />
         <link rel="canonical" href="https://wekraft.xyz" />
       </head>
 
