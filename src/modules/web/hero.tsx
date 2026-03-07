@@ -138,24 +138,26 @@ const Hero = () => {
   // ─────────────────────────────────────────────────────────
 
   return (
-    <div ref={containerRef} className="min-h-screen md:max-h-[200vh] w-full  bg-black relative overflow-hidden">
+    <div ref={containerRef} className="min-h-screen w-full bg-black relative overflow-hidden flex flex-col">
       <div className="">
         <Spotlight
           className="-top-40 left-0 md:-top-20 md:left-60"
           fill="#C1C1C1"
         />
       </div>
-      <Image
-        src="/night-bg.png"
-        alt="background"
-        className="size-full block  opacity-70 "
-        width="3276"
-        height="4095"
-        priority
-      />
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/night-bg.png"
+          alt="background"
+          className="size-full block object-cover opacity-70"
+          width="3276"
+          height="4095"
+          priority
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
+      </div>
 
-      <main className="absolute inset-0 flex flex-col items-center justify-center pt-20">
+      <main className="relative z-10 flex flex-col items-center pt-28 md:pt-40 pb-20 w-full">
         <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 border border-gray-400/30 rounded-full  cursor-pointer font-inter tracking-wide transition-colors duration-200 mb-14">
           <span>✨</span>
           <Separator orientation="vertical" className="mx-2 bg-gray-600" />
@@ -163,12 +165,12 @@ const Hero = () => {
         </AnimatedShinyText>
 
         <div className="flex flex-col gap-4 md:gap-2 items-center justify-center font-pop  relative px-4">
-          <h1 className="text-[56px] md:text-8xl text-center leading-none md:leading-[1.40] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
-            Build <span className="">Together</span>
+          <h1 className="text-5xl md:text-8xl text-center leading-none md:leading-[1.40] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
+            Build Together
           </h1>
-          <div className="flex items-center gap-4 -mt-4">
-            <h1 className="text-[56px] md:text-8xl leading-[1.15] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
-              Craft <span className="">Faster</span>
+          <div className="flex items-center gap-4 -mt-2 md:-mt-4">
+            <h1 className="text-5xl md:text-8xl leading-[1.15] bg-linear-to-b from-white via-white to-neutral-800 bg-clip-text text-transparent font-semibold ">
+              Craft Faster
             </h1>
             <div className="hidden md:flex self-center -mb-4 w-12 h-12 items-center justify-center rounded-lg bg-linear-to-br from-blue-300 to-blue-700">
               <LucideTrendingUp className="w-10 h-10 text-white" />
