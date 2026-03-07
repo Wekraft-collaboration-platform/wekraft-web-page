@@ -16,6 +16,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 import { Input } from "@/components/ui/input";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { toast } from "sonner";
 
 const FloatingCursor = ({
   name,
@@ -94,6 +97,37 @@ const Hero = () => {
   const scale = useSpring(rawScale, { stiffness: 80, damping: 20 });
   const y = useSpring(rawY, { stiffness: 80, damping: 20 });
 
+  // ── Waitlist ──────────────────────────────────────────────
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const saveEmail = useMutation(api.query.saveEmail);
+
+  const handleJoinWaitlist = async () => {
+    const trimmed = email.trim();
+    if (!trimmed) {
+      toast.error("Please enter your email.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setLoading(true);
+    const toastId = toast.loading("Joining waitlist...");
+
+    try {
+      await saveEmail({ email: trimmed });
+      toast.success("You're on the list! We'll reach out soon.", { id: toastId });
+      setEmail("");
+    } catch (err) {
+      toast.error("Something went wrong. Please try again.", { id: toastId });
+    } finally {
+      setLoading(false);
+    }
+  };
+  // ─────────────────────────────────────────────────────────
+
   return (
     <div ref={containerRef} className="min-h-screen max-h-[200vh] w-full  bg-black relative overflow-hidden">
       <div className="">
@@ -167,9 +201,17 @@ const Hero = () => {
                 type="email"
                 placeholder="Enter your email..."
                 className="w-96 h-9 bg-neutral-300"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && !loading && handleJoinWaitlist()}
+                disabled={loading}
               />
-              <Button className="h-10! cursor-pointer bg-blue-800 hover:bg-blue-900 border border-white/30">
-                Join Waitlist <MousePointerBan className="w-4 h-4" />
+              <Button
+                onClick={handleJoinWaitlist}
+                disabled={loading}
+                className="h-10! cursor-pointer bg-blue-800 hover:bg-blue-900 border border-white/30 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? "Joining..." : "Join Waitlist"} <MousePointerBan className="w-4 h-4" />
               </Button>
             </div>
             <p className="text-gray-400 text-sm mt-2 font-sans tracking-tight text-pretty text-center">

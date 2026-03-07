@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/ScrollSmooth";
 import { ConvexClientProvider } from "@/providers/ConvexClientProvider";
 import { Analytics } from "@vercel/analytics/next"
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,8 @@ export default function RootLayout({
       >
         <ConvexClientProvider>
           <SmoothScroll>{children}</SmoothScroll>
+          <Toaster className="fixed top-4 right-4" theme="dark" position="top-right" />
+          <Analytics />
         </ConvexClientProvider>
       </body>
     </html>

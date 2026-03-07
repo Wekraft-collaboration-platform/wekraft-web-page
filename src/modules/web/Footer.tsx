@@ -1,14 +1,47 @@
 "use client";
 import Image from "next/image";
-import React from "react";
-
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Github, Heart, Mail, MousePointerBan, Rocket } from "lucide-react";
+import { Github, Heart, Mail, MousePointerBan } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { toast } from "sonner";
 
 const Footer = () => {
+  // ── Waitlist ──────────────────────────────────────────────
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const saveEmail = useMutation(api.query.saveEmail);
+
+  const handleJoinWaitlist = async () => {
+    const trimmed = email.trim();
+    if (!trimmed) {
+      toast.error("Please enter your email.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    setLoading(true);
+    const toastId = toast.loading("Joining waitlist...");
+
+    try {
+      await saveEmail({ email: trimmed });
+      toast.success("You're on the list! 🎉 We'll reach out soon.", { id: toastId });
+      setEmail("");
+    } catch (err) {
+      toast.error("Something went wrong. Please try again.", { id: toastId });
+    } finally {
+      setLoading(false);
+    }
+  };
+  // ─────────────────────────────────────────────────────────
+
   return (
     <div
       id="footer"
@@ -67,9 +100,17 @@ const Footer = () => {
               type="email"
               placeholder="Enter your email..."
               className="w-80 md:w-96 h-10 bg-neutral-900/50 border-white/10 text-white placeholder:text-gray-500 rounded-xl focus:ring-blue-500/50"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && !loading && handleJoinWaitlist()}
+              disabled={loading}
             />
-            <Button className="h-10 px-8 cursor-pointer bg-blue-700 hover:bg-blue-800 text-white border border-white/20 rounded-xl font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-              Join Waitlist <MousePointerBan className="ml-2 w-5 h-5" />
+            <Button
+              onClick={handleJoinWaitlist}
+              disabled={loading}
+              className="h-10 px-8 cursor-pointer bg-blue-700 hover:bg-blue-800 text-white border border-white/20 rounded-xl font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {loading ? "Joining..." : "Join Waitlist"} <MousePointerBan className="ml-2 w-5 h-5" />
             </Button>
           </div>
           <p className="text-gray-400 text-sm md:text-base font-inter tracking-wide text-center max-w-lg leading-relaxed">
