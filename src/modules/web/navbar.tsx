@@ -8,9 +8,9 @@ import Link from "next/link";
 import { ArrowRight, TimerIcon, TimerReset } from "lucide-react";
 
 const navLinks: { label: string; href: string }[] = [
-  { label: "Home", href: "/web" },
-  { label: "Pricing", href: "/web/pricing" },
-  { label: "Reach us", href: "/web/reach-us" },
+  { label: "Home", href: "/" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Reach us", href: "/reach-us" },
   { label: "Docs", href: "/" },
 ];
 

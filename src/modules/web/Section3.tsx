@@ -137,7 +137,7 @@ const Section3 = () => {
               transition={{ ...fadeUp.transition, delay: 0.3 }}
             >
               <Link
-                href="/web/reach-us"
+                href="/reach-us"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-700 transition-colors duration-200"
               >
                 Get early access
