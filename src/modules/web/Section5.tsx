@@ -160,22 +160,12 @@ const Section5 = () => {
     <section className="relative w-full bg-black overflow-hidden pb-20">
       {/* ── Header ── */}
       <div className="relative z-10 text-center mb-24 px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center mb-8"
-        >
-          <Image
-            src="/logo.svg"
-            alt="Wekraft Logo"
-            width={45}
-            height={45}
-            className="drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
-          />
-        </motion.div>
-
+         <motion.div
+            className="inline-flex items-center gap-2 px-5 py-1 rounded-full border border-white/10 bg-blue-500/10 text-[13px] text-neutral-400 font-medium mb-6"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+            Infra you need
+          </motion.div>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

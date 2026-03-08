@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Github, Heart, Mail, MousePointerBan } from "lucide-react";
+import { Github, Heart, Instagram, Mail, MousePointerBan } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { useMutation } from "convex/react";
@@ -40,7 +40,9 @@ const Footer = () => {
         body: JSON.stringify({ email: trimmed }),
       }).catch((err) => console.error("[waitlist] fetch failed:", err));
 
-      toast.success("You're on the list! We'll reach out soon.", { id: toastId });
+      toast.success("You're on the list! We'll reach out soon.", {
+        id: toastId,
+      });
       setEmail("");
     } catch (err) {
       toast.error("Something went wrong. Please try again.", { id: toastId });
@@ -91,7 +93,7 @@ const Footer = () => {
           className="text-4xl md:text-5xl  font-semibold text-white leading-tight tracking-tight mb-12"
         >
           The Future of Web <br />
-          Crafted {" "}
+          Crafted{" "}
           <span className="bg-linear-to-r from-blue-400 to-blue-800 bg-clip-text text-transparent">
             Together.
           </span>
@@ -111,7 +113,9 @@ const Footer = () => {
               className="w-80 md:w-96 h-10 bg-neutral-900/50 border-white/10 text-white placeholder:text-gray-500 rounded-xl focus:ring-blue-500/50"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && !loading && handleJoinWaitlist()}
+              onKeyDown={(e) =>
+                e.key === "Enter" && !loading && handleJoinWaitlist()
+              }
               disabled={loading}
             />
             <Button
@@ -119,15 +123,12 @@ const Footer = () => {
               disabled={loading}
               className="h-8 md:h-10 px-6 md:px-8 cursor-pointer bg-blue-700 hover:bg-blue-800 text-white border border-white/20 rounded-xl font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? "Joining..." : "Join Waitlist"} <MousePointerBan className="ml-2 w-5 h-5" />
+              {loading ? "Joining..." : "Join Waitlist"}{" "}
+              <MousePointerBan className="ml-2 w-5 h-5" />
             </Button>
           </div>
           <p className="text-gray-400 text-sm md:text-base font-inter tracking-wide text-center max-w-lg leading-relaxed">
-            get a chance to get huge{" "}
-            <span className="text-blue-400 font-semibold underline decoration-blue-400/30 underline-offset-4">
-              discounts
-            </span>{" "}
-            as early bird access to wekraft.
+           Get Early bird discount. Join Now
           </p>
         </motion.div>
       </div>
@@ -142,10 +143,28 @@ const Footer = () => {
 
         <div className="flex items-center flex-wrap text-neutral-200 justify-center gap-x-8 gap-y-4 md:gap-y-0">
           <Link
+            href="/https://x.com/wekraftt?s=21"
+            className="hover:text-white transition-colors flex items-center gap-2"
+          >
+            <Image src={"/twitter.png"} alt="x" width={26} height={26} />
+          </Link>
+          <Link
+            href="/https://discord.gg/zUXum4Z8"
+            className="hover:text-white transition-colors flex items-center gap-2"
+          >
+            <Image src={"/discord.png"} alt="discord" width={26} height={26} />
+          </Link>
+          <Link
+            href="/https://www.instagram.com/wekraft.xyz"
+            className="hover:text-white transition-colors flex items-center gap-2"
+          >
+            <Image src={"/instagram.png"} alt="insta" width={26} height={26} />
+          </Link>
+          <Link
             href="/reach-us"
             className="hover:text-white transition-colors flex items-center gap-2"
           >
-            <Mail className="w-4 h-4" /> Contact Us
+            <Mail className="w-5 h-5" />
           </Link>
           <Link
             href="https://github.com/Wekraft-collaboration-platform"
@@ -154,8 +173,8 @@ const Footer = () => {
             <Github className="w-4 h-4" /> Star on GitHub
           </Link>
           <Link
-            href="/https://www.linkedin.com/in/rox-aa53a1300/"
-            className="hover:text-white transition-colors flex items-center gap-2 text-white p-2 bg-blue-500/30 rounded-lg"
+            href="/about-us"
+            className="hover:text-white transition-colors flex items-center gap-2 text-white p-2 bg-blue-500/70 rounded-lg"
           >
             <Heart className="w-4 h-4" /> Support Creator
           </Link>

@@ -13,8 +13,8 @@ const team = [
     name: "Rox",
     role: "Founding Engineer & Vision",
     image: "/rox.png",
-    linkedin: "rox-aa53a1300",
-    github: "rox-github", // Placeholder for actual ID
+    linkedin: "/https://www.linkedin.com/in/rox-aa53a1300/",
+    github: "/https://github.com/ronitrai27", 
     bio: "Driving the core architecture and ensuring every line of code meets the WeKraft craft standard.",
   },
   {
@@ -27,15 +27,15 @@ const team = [
   },
   {
     name: "Sahil",
-    role: "Product & Experience Developer",
-    image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=200&h=200", // placeholder as requested
-    linkedin: "sahil-linkedin", // Placeholder
-    github: "sahil-github", // Placeholder
+    role: "Mobile App Developer",
+    image: "/sahil.jpeg", 
+    linkedin: "/https://www.linkedin.com/in/sahil-80573b388", // Placeholder
+    github: "/https://github.com/Sleepy-07", // Placeholder
     bio: "Obsessed with user experience and seamless workflows that make collaboration feel like magic.",
   },
   {
     name: "Bhanu Pratap",
-    role: "Core Engine Developer",
+    role: "Co-Founding Engineer",
     image: "/bhanu.jpeg",
     linkedin: "bhanu-linkedin", // Placeholder
     github: "bhanu-github", // Placeholder
