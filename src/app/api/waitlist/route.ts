@@ -3,12 +3,18 @@ import { sendEmail } from "@/lib/resend";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email } = await req.json();
+  const body = await req.json();
+  const email = body.email;
 
-    if (!email || typeof email !== "string") {
+  console.log('[Waitlist API] Received request:', { email, hasEmail: !!email });
+
+  if (!email || typeof email !== "string") {
+    console.error('[Waitlist API] Invalid email:', email);
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
+  console.log('[Waitlist API] Sending email to:', email);
+    
     await sendEmail({
       to: email,
       subject: "You're on the WeKraft waitlist!",

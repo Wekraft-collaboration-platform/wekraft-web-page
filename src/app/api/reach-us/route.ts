@@ -3,12 +3,18 @@ import { sendEmail } from "@/lib/resend";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, type, subject, message } = await req.json();
+ const body = await req.json();
+ const { email, type, subject, message } = body;
 
-    if (!email || !message) {
+ console.log('[Reach Us API] Received request:', { email, subject, type, hasMessage: !!message });
+
+  if (!email || !message) {
+   console.error('[Reach Us API] Missing required fields:', { email, message });
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+ console.log('[Reach Us API] Sending email to:', email);
+    
     await sendEmail({
       to: email,
       subject: "We've received your message - WeKraft",
