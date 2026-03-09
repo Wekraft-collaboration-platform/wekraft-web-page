@@ -150,10 +150,11 @@ const Hero = () => {
         <Image
           src="/night-hero.png"
           alt="background"
-          fill
+         fill
           sizes="100vw"
           className="object-cover opacity-70"
           priority
+          quality={85}
         />
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/75" />
       </div>
@@ -309,6 +310,8 @@ const Hero = () => {
                 width="1920"
                 height="1080"
                 priority
+                quality={85}
+                sizes="(max-width: 768px) 100vw, 1200px"
               />
             </div>
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 md:h-80 bg-linear-to-t from-black via-black/50 to-transparent" />
@@ -327,6 +330,8 @@ const Hero = () => {
                 width={1920}
                 height={1080}
                 priority
+                quality={85}
+                sizes="(max-width: 768px) 100vw, 500px"
               />
             </div>
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black via-black/40 to-transparent" />
