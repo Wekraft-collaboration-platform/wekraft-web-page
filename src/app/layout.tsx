@@ -87,10 +87,11 @@ export default function RootLayout({
       <head />
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
       >
         <ConvexClientProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          {/* <SmoothScroll>{children}</SmoothScroll> */}
+          {children}
           <Toaster
             className="fixed top-4 right-4"
             theme="dark"
