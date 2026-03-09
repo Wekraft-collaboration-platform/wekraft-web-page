@@ -13,6 +13,17 @@ export const saveEmail = mutation({
     },
 })
 
+export const getWaitingList = query({
+    handler: async (ctx) => {
+        return await ctx.db.query("waitingList").order("desc").collect();
+    },
+});
+
+export const getQueries = query({
+    handler: async (ctx) => {
+        return await ctx.db.query("query").order("desc").collect();
+    },
+});
 
 export const saveQuery = mutation({
     args: {
