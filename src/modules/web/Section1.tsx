@@ -330,7 +330,7 @@ const Section1 = () => {
 
             <div className="absolute inset-0 w-full h-full flex items-end justify-center top-1/2 md:top-[45%] md:scale-105 opacity-80">
 
-              {/* <Globe /> */}
+              <Globe />
               {[
                 { top: "0%", left: "15%", tag: "Rox", img: "https://i.pravatar.cc/100?img=11", delay: 0 },
                 { top: "10%", right: "20%", tag: "Bhanu", img: "https://i.pravatar.cc/100?img=12", delay: 2.5 },
