@@ -109,7 +109,7 @@ const AboutUs = () => {
                 whileHover={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="group relative bg-[#0a0a0a] border border-white/10 rounded-[32px] overflow-hidden transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] flex flex-col items-center p-8"
+                className="group relative bg-[#0a0a0a] border border-white/10 rounded-[32px] overflow-hidden transition-all duration-300 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] flex flex-col items-center p-8 transform-gpu backface-hidden will-change-transform isolate"
               >
                 {/* Image & Glow */}
                 <div className="relative w-32 h-32 mb-6 pointer-events-none">

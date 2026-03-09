@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import {
   Sparkles,
   CheckSquare,
@@ -30,13 +30,15 @@ const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
       <motion.path
         d={d}
         fill="none"
-        stroke="url(#connectorGradient)"
+        stroke="#60a5fa"
+        strokeOpacity="0.3"
         strokeWidth="1.5"
         strokeLinecap="round"
         initial={{ pathLength: 0, opacity: 0 }}
         whileInView={{ pathLength: 1, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay, ease: "easeInOut" }}
+        className="transform-gpu"
       />
       <motion.path
         d={d}
@@ -44,7 +46,6 @@ const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
         stroke="#60a5fa"
         strokeWidth="2.5"
         strokeLinecap="round"
-        filter="url(#glow)"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={{
           pathLength: [0, 0.1, 0],
@@ -57,6 +58,7 @@ const ConnectorLine = ({ d, delay = 0 }: { d: string; delay?: number }) => {
           delay: delay + 1,
           ease: "easeInOut",
         }}
+        className="drop-shadow-[0_0_8px_rgba(96,165,250,0.8)] transform-gpu"
       />
       <motion.circle
         cx={startX}
@@ -100,15 +102,18 @@ const Section2 = () => {
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.7]);
+  const rawScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.7]);
+  
+  const scale = useSpring(rawScale, { stiffness: 80, damping: 20 });
+  const opacity = useSpring(rawOpacity, { stiffness: 80, damping: 20 });
   const BLUE_ORB: [string, string] = ["#CADCFC", "#A0B9D1"];
 
   return (
     <motion.div
       ref={containerRef}
       style={{ scale, opacity }}
-      className="hidden md:block min-h-screen w-full bg-black overflow-hidden selection:bg-blue-500/30 dark relative z-0"
+      className="hidden md:block min-h-screen w-full bg-black overflow-hidden selection:bg-blue-500/30 dark relative z-0 will-change-transform transform-gpu"
     >
       <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#80808016_1px,transparent_1px),linear-gradient(to_bottom,#80808016_1px,transparent_1px)] bg-size-[36px_36px]" />
       <div className="absolute inset-0 z-0">
@@ -160,7 +165,7 @@ const Section2 = () => {
                 </feMerge>
               </filter>
             </defs>
-            <g filter="url(#glow)">
+            <g>
               <ConnectorLine
                 d="M 240 160 H 320 Q 360 160, 360 210 V 260 Q 360 300, 420 300 H 460"
                 delay={0.2}
