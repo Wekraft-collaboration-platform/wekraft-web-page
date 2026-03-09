@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { verifyAdminPassword } from "./actions";
 
 export default function AdminPage() {
@@ -68,6 +69,11 @@ function AdminDashboard() {
     const waitingList = useQuery(api.query.getWaitingList) || [];
     const queries = useQuery(api.query.getQueries) || [];
 
+    const isRecent = (timestamp: number) => {
+        const oneHourAgo = Date.now() - 60 * 60 * 1000;
+        return timestamp > oneHourAgo;
+    };
+
     return (
         <div className="container mx-auto p-8 space-y-8">
             <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
@@ -96,7 +102,16 @@ function AdminDashboard() {
                                     ) : (
                                         waitingList.map((entry) => (
                                             <TableRow key={entry._id}>
-                                                <TableCell className="font-medium">{entry.email}</TableCell>
+                                                <TableCell className="font-medium">
+                                                    <div className="flex items-center gap-2">
+                                                        {entry.email}
+                                                        {isRecent(entry.createdAt) && (
+                                                            <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border-blue-500/20">
+                                                                Recent
+                                                            </Badge>
+                                                        )}
+                                                    </div>
+                                                </TableCell>
                                                 <TableCell className="text-right">
                                                     {new Date(entry.createdAt).toLocaleDateString()}
                                                 </TableCell>
@@ -133,7 +148,14 @@ function AdminDashboard() {
                                         queries.map((q) => (
                                             <TableRow key={q._id}>
                                                 <TableCell>
-                                                    <div className="font-semibold">{q.subject || "No Subject"}</div>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="font-semibold">{q.subject || "No Subject"}</div>
+                                                        {isRecent(q.createdAt) && (
+                                                            <Badge variant="secondary" className="bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border-blue-500/20">
+                                                                Recent
+                                                            </Badge>
+                                                        )}
+                                                    </div>
                                                     <div className="text-sm text-muted-foreground">{q.email}</div>
                                                     {q.type && <div className="text-xs font-mono text-muted-foreground mt-1">[{q.type}]</div>}
                                                     {q.message && <div className="text-sm mt-2">{q.message}</div>}
