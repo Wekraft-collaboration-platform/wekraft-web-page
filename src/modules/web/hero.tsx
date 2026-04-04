@@ -304,7 +304,7 @@ const Hero = () => {
             {/* Border frame */}
             <div className="rounded-xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(59,130,246,0.08)]">
               <Image
-                src="/hero-img.png"
+                src="/hero-img1.png"
                 alt="Hero Image"
                 className="w-full h-auto block"
                 width="1920"
@@ -324,7 +324,7 @@ const Hero = () => {
             <div className="absolute -inset-x-4 -top-4 h-8 bg-blue-500/20 blur-2xl rounded-full pointer-events-none" />
             <div className="rounded-xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.1)]">
               <Image
-                src="/hero-img.png"
+                src="/hero-img1.png"
                 alt="Hero Image"
                 className="w-full h-auto block"
                 width={1920}
